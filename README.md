@@ -19,3 +19,10 @@ Phase 2 API: (future version)
 
 TBD (aiming for BTC-e)
 
+
+
+
+License
+=========================
+
+This library is released under the GNU LGPL
