@@ -10,16 +10,21 @@ This is a project which is work in progress.  A private API is being translated 
 
 Phase 1 API: (under translation)
 
-Mt.Gox:
- * REST V0/V1/V2
- * Websocket
- * Pubnub
+Support for REST polling interface
+Exchanges: Kraken
  
 Phase 2 API: (future version)
 
+Support for websocket interface
+Support for aggregation services
+
 TBD (aiming for BTC-e)
 
-
+Features:
+- Event driven architecture for real-time applications
+- Interface framework for real-time trading algorithms
+- Integrate into applications and services
+- [planned] Deployable as windows service as stand-alone process
 
 
 License
