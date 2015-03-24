@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BitExAPI
+namespace BitExAPI.Markets
 {
-    public class Connection
+    public interface IRestConnection
     {
+        string RestEndpoint { get; set; }
     }
 }

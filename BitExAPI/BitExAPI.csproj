@@ -39,8 +39,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Connection.cs" />
+    <Compile Include="Events\TradesEventArgs.cs" />
+    <Compile Include="Markets\IMarketConnection.cs" />
+    <Compile Include="Markets\IRestConnection.cs" />
+    <Compile Include="Markets\Kraken\KrakenConnection.cs" />
+    <Compile Include="Markets\Kraken\RateLimiter.cs" />
+    <Compile Include="Markets\Kraken\TradesResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\RestSharp\RestSharp\RestSharp.csproj">
+      <Project>{2ececfbf-5f3e-40ee-a963-72336dc7abe2}</Project>
+      <Name>RestSharp</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
