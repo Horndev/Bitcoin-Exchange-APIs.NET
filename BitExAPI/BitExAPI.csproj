@@ -45,6 +45,7 @@
     <Compile Include="Markets\Kraken\KrakenConnection.cs" />
     <Compile Include="Markets\Kraken\RateLimiter.cs" />
     <Compile Include="Markets\Kraken\TradesResponse.cs" />
+    <Compile Include="Markets\Response.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

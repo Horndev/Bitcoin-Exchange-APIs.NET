@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using BitExAPI.Events;
+using RestSharp;
 using RestSharp.Deserializers;
 using System;
 using System.Collections.Generic;
@@ -8,8 +9,9 @@ using System.Web;
 
 namespace BitExAPI.Markets.Kraken
 {
-    
-
+    /// <summary>
+    /// Connection to Kraken Exchange
+    /// </summary>
     public class KrakenConnection: IMarketConnection, IRestConnection
     {
         private string endpoint = "https://api.kraken.com/0/";
@@ -19,45 +21,25 @@ namespace BitExAPI.Markets.Kraken
 
         private Thread getTradesThread;
 
-        public event EventHandler<Events.TradesEventArgs> OnTradesUpdated;
+        #region Events
+        
+        /// <summary>
+        /// Triggered when new trades are received
+        /// </summary>
+        public event EventHandler<TradesEventArgs> OnTrades;
+        
+        #endregion
 
         public KrakenConnection(string since = "")
         {
             client = new RestClient(endpoint);
-            getTradesThread = new Thread(new ThreadStart(TriggerTradeUpdate));
+            getTradesThread = new Thread(new ThreadStart(getTradesWorker));
             sinceLastTrade = since;
         }
 
-        public void UpdateTrades(TradesResponse newTrades)
-        {
-            if (newTrades != null)
-            {
-                if (newTrades.error == "[\"EAPI:Rate limit exceeded\"]")
-                {
-                    throw new Exception("Rate Limit Exceeded");
-                }
-                var t = newTrades.result.XXBTZEUR;
-                if (OnTradesUpdated != null && t.Count > 0)
-                    OnTradesUpdated(null, new Events.TradesEventArgs() {
-                        data = newTrades, 
-                        APIName = "kraken"
-                        });
+        #region API commands
 
-                sinceLastTrade = newTrades.result.last;
-            }
-        }
-
-        public void TriggerTradeUpdate()
-        {
-            while (true)
-            {
-                requestLimiter.EnqueRequest(
-                    RequestTrades, 
-                    priority: 0);
-            }
-        }
-
-        public void RequestTrades()
+        public Response RequestTrades()
         {
             var request = new RestRequest("{scope}/{op}", Method.POST);
 
@@ -71,9 +53,29 @@ namespace BitExAPI.Markets.Kraken
             request.AddUrlSegment("op", "Trades");
 
             IRestResponse<TradesResponse> response2 = client.Execute<TradesResponse>(request);
-            UpdateTrades(response2.Data);
 
+            TradesResponse newTrades = response2.Data;
+            if (newTrades != null)
+            {
+                if (newTrades.error == "[\"EAPI:Rate limit exceeded\"]")
+                {
+                    throw new Exception("Rate Limit Exceeded");
+                }
+                var t = newTrades.result.XXBTZEUR;
+                if (OnTrades != null && t.Count > 0)
+                    OnTrades(null, new Events.TradesEventArgs()
+                    {
+                        data = newTrades,
+                        APIName = "kraken"
+                    });
+
+                sinceLastTrade = newTrades.result.last;
+            }
+
+            return response2.Data;
         }
+
+        #endregion
 
         public string RestEndpoint
         {
@@ -87,14 +89,29 @@ namespace BitExAPI.Markets.Kraken
             }
         }
 
+        #region MarketConnection Methods
+
         public void Start()
         {
             if (!getTradesThread.IsAlive)
                 getTradesThread.Start();
         }
 
+        #endregion
 
+        #region thread workers
 
+        private void getTradesWorker()
+        {
+            while (true)
+            {
+                requestLimiter.EnqueRequest(
+                    () => RequestTrades(),      //note that only the events will be triggered
+                    priority: 0);
+            }
+        }
+
+        #endregion
 
     }
 }

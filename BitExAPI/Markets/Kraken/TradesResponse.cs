@@ -5,12 +5,11 @@ using System.Web;
 
 namespace BitExAPI.Markets.Kraken
 {
-    public class TradesResponse
+    public class TradesResponse : Response
     {
         public string error {get;set;}
         public Resp result {get;set;}
         
-
         public class Resp
         {
             //<price>, <volume>, <time>, <buy/sell>, <market/limit>, <miscellaneous>
