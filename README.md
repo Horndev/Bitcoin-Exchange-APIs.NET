@@ -18,7 +18,7 @@ Phase 1 API: (under translation)
 Phase 2 API: (future version)
 
 - Support for websocket interface
-- Support for aggregation services
+- Support for aggregation services (like http://btc-rates.com/#firehose)
 
 TBD (aiming for BTC-e)
 
