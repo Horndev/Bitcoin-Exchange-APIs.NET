@@ -48,7 +48,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\RestSharp\RestSharp\RestSharp.csproj">
+    <ProjectReference Include="..\RestSharp\RestSharp\RestSharp.csproj">
       <Project>{2ececfbf-5f3e-40ee-a963-72336dc7abe2}</Project>
       <Name>RestSharp</Name>
     </ProjectReference>
