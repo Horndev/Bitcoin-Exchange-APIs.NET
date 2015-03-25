@@ -1,4 +1,5 @@
 ﻿using BitExAPI.Events;
+using BitExAPI.Markets.Data;
 using RestSharp;
 using RestSharp.Deserializers;
 using System;
@@ -39,7 +40,7 @@ namespace BitExAPI.Markets.Kraken
 
         #region API commands
 
-        public Response RequestTrades()
+        public MarketData RequestTrades()
         {
             var request = new RestRequest("{scope}/{op}", Method.POST);
 
@@ -62,17 +63,20 @@ namespace BitExAPI.Markets.Kraken
                     throw new Exception("Rate Limit Exceeded");
                 }
                 var t = newTrades.result.XXBTZEUR;
+                sinceLastTrade = newTrades.result.last;
+
                 if (OnTrades != null && t.Count > 0)
                     OnTrades(null, new Events.TradesEventArgs()
                     {
-                        data = newTrades,
-                        APIName = "kraken"
+                        data = (Trades)newTrades.ToMarketData(),
+                        APIName = "kraken",
+                        LastTimeUTC_Epoch_e9 = Convert.ToInt64(sinceLastTrade)
                     });
 
-                sinceLastTrade = newTrades.result.last;
+                
             }
 
-            return response2.Data;
+            return newTrades.ToMarketData();
         }
 
         #endregion

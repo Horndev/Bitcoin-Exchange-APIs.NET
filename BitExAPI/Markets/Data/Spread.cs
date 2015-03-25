@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BitExAPI.Markets
+namespace BitExAPI.Markets.Data
 {
-    public abstract class Response
+    public class Spread : MarketData
     {
     }
 }

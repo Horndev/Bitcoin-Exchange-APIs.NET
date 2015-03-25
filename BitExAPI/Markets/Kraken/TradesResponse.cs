@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BitExAPI.Markets.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,7 +8,23 @@ namespace BitExAPI.Markets.Kraken
 {
     public class TradesResponse : Response
     {
-        public string error {get;set;}
+        public override MarketData ToMarketData()
+        {
+            Trades t = new Trades();
+            t.BuyCurrency = Money.Money.Currencies["BTC"];
+            t.SellCurrency = Money.Money.Currencies["EUR"];
+            t.TradePoints = result.XXBTZEUR.Select(x =>
+                new TradePoint() { 
+                    OrderType = x.IsMarket ? "m" : "l",
+                    Price = x.price,
+                    TimeUTC =  new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc) + TimeSpan.FromSeconds(Convert.ToDouble(x.time)),
+                    TradeType = x.TradeType,
+                    Volume = x.volume
+                }
+                ).ToList();
+            return t;
+        }
+
         public Resp result {get;set;}
         
         public class Resp

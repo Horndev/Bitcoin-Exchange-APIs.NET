@@ -40,12 +40,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Events\TradesEventArgs.cs" />
+    <Compile Include="Markets\Data\MarketData.cs" />
+    <Compile Include="Markets\Data\Spread.cs" />
+    <Compile Include="Markets\Data\Trades.cs" />
     <Compile Include="Markets\IMarketConnection.cs" />
     <Compile Include="Markets\IRestConnection.cs" />
     <Compile Include="Markets\Kraken\KrakenConnection.cs" />
     <Compile Include="Markets\Kraken\RateLimiter.cs" />
+    <Compile Include="Markets\Kraken\SpreadResponse.cs" />
     <Compile Include="Markets\Kraken\TradesResponse.cs" />
-    <Compile Include="Markets\Response.cs" />
+    <Compile Include="Markets\Kraken\Response.cs" />
+    <Compile Include="Money\Currencies.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

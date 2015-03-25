@@ -1,4 +1,5 @@
 ﻿using BitExAPI.Events;
+using BitExAPI.Markets.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,6 @@ namespace BitExAPI.Markets
         // Manual Commands
         //---------------------------------------------------------------------
 
-        Response RequestTrades();
+        MarketData RequestTrades();
     }
 }

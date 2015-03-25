@@ -17,12 +17,6 @@ namespace BitExAPI.Markets.Kraken
         private TimeSpan minWait = TimeSpan.FromSeconds(5);
         private DateTime lastRequestTime = DateTime.Now;
         private TimeSpan counterDecay = TimeSpan.FromSeconds(10);
-
-        /// <summary>
-        /// Fired when ready to send another request
-        /// </summary>
-        public event ReadyEvent OnReady;
-        private ConcurrentQueue<object> o;
         
         public RateLimiter()
         {
@@ -41,7 +35,7 @@ namespace BitExAPI.Markets.Kraken
             {
                 if ((DateTime.Now - lastRequestTime) > minWait && counter < 10 - priority)
                 {
-                    Console.Beep();
+                    Console.Beep();     //debugging
 
                     request();
                     counter = counter + cost;
@@ -50,7 +44,7 @@ namespace BitExAPI.Markets.Kraken
                 }
                 else
                 {
-                    int z = 1;
+                    
                 }
             }
         }
