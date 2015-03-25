@@ -7,9 +7,6 @@ using System.Web;
 
 namespace BitExAPI.Markets.Kraken
 {
-
-    public delegate void ReadyEvent();
-
     public class RateLimiter
     {
         private static int counter = 0;
@@ -54,8 +51,6 @@ namespace BitExAPI.Markets.Kraken
             counter = counter > 0 ? counter -= 1 : 0;
         }
     }
-
-
 }
 
 /*

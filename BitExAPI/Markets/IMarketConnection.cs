@@ -25,5 +25,7 @@ namespace BitExAPI.Markets
         //---------------------------------------------------------------------
 
         MarketData RequestTrades();
+        MarketData RequestSpreads();
+
     }
 }
