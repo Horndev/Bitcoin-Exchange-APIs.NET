@@ -18,7 +18,9 @@ namespace BitExAPI.Markets.Kraken
         private string endpoint = "https://api.kraken.com/0/";
         private static RateLimiter requestLimiter = new RateLimiter();
         private RestClient client;
-        private string sinceLastTrade = "";
+
+        private string sinceLastTrade = "";     // Epoch time *10^9 of last received data
+        private string sinceLastSpread = "";    // Epoch time of last received data (rounded to the second)
 
         private Thread getTradesThread;
 
@@ -40,22 +42,46 @@ namespace BitExAPI.Markets.Kraken
 
         #region API commands
 
-        public MarketData RequestTrades()
+        /// <summary>
+        /// Helper function for REST requests
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="scope"></param>
+        /// <param name="op"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        private T makeRequest<T>(string scope, string op, Dictionary<string, string> parameters) where T : new()
         {
             var request = new RestRequest("{scope}/{op}", Method.POST);
+            request.AddUrlSegment("scope", scope);
+            request.AddUrlSegment("op", op);
 
-            request.AddParameter("pair", "XXBTZEUR");
+            foreach(var param in parameters)
+            {
+                request.AddParameter(param.Key,param.Value);
+            }
+            IRestResponse<T> response = client.Execute<T>(request);
+
+            return response.Data;
+        }
+
+        public MarketData RequestTrades()
+        {
+            string pair = "XXBTZEUR";
+            //request parameters
+            var p = new Dictionary<string, string>();
+            p.Add("pair",pair);
             if (sinceLastTrade != "")
             {
                 string sinceStr = Convert.ToString(sinceLastTrade);
-                request.AddParameter("since", sinceStr);
+                p.Add("since", sinceStr);
             }
-            request.AddUrlSegment("scope", "public");
-            request.AddUrlSegment("op", "Trades");
 
-            IRestResponse<TradesResponse> response2 = client.Execute<TradesResponse>(request);
+            TradesResponse newTrades = makeRequest<TradesResponse>(
+                scope: "public",
+                op: "Trades",
+                parameters: p);//response2.Data;
 
-            TradesResponse newTrades = response2.Data;
             if (newTrades != null)
             {
                 if (newTrades.error == "[\"EAPI:Rate limit exceeded\"]")

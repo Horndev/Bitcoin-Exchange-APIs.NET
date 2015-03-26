@@ -10,8 +10,10 @@ namespace BitExAPI.Money
     {
         public static Dictionary<string, Currency> Currencies = new Dictionary<string, Currency>()
         {
-            {"BTC", new Currency() { ThreeLetter = "BTC", FullName = "Bitcoin"}},
-            {"EUR", new Currency() { ThreeLetter = "EUR", FullName = "Euro"}}
+            {"BTC", new Currency() { ThreeLetter = "BTC", FullName = "Bitcoin", precision = 10}},
+            {"EUR", new Currency() { ThreeLetter = "EUR", FullName = "Euro", precision = 4}},
+            {"USD", new Currency() { ThreeLetter = "USD", FullName = "United States Dollars", precision = 4}}
+
         };
     }
 
@@ -19,5 +21,6 @@ namespace BitExAPI.Money
     {
         public string ThreeLetter;
         public string FullName;
+        public uint precision;  //Number of decimal points to keep
     }
 }

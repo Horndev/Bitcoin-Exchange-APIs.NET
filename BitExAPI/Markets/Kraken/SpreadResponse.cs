@@ -20,7 +20,6 @@ namespace BitExAPI.Markets.Kraken
 
         public class Resp
         {
-            //<price>, <volume>, <time>, <buy/sell>, <market/limit>, <miscellaneous>
             public List<X> XXBTZEUR { get; set; }
             public string last { get; set; }
         }

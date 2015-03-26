@@ -47,6 +47,7 @@
     <Compile Include="Markets\IRestConnection.cs" />
     <Compile Include="Markets\Kraken\KrakenConnection.cs" />
     <Compile Include="Markets\Kraken\RateLimiter.cs" />
+    <Compile Include="Markets\Kraken\Request.cs" />
     <Compile Include="Markets\Kraken\SpreadResponse.cs" />
     <Compile Include="Markets\Kraken\TradesResponse.cs" />
     <Compile Include="Markets\Kraken\Response.cs" />
