@@ -13,6 +13,7 @@ namespace BitExAPI.Markets
     public interface IMarketConnection
     {
         event EventHandler<TradesEventArgs> OnTrades;   //Recieved new trades message
+        event EventHandler<SpreadEventArgs> OnSpread;   //Spread info updated
 
         /// <summary>
         /// Start a thread to begin receiving data from the exchange.

@@ -30,6 +30,8 @@ namespace BitExAPI.Markets.Kraken
         /// Triggered when new trades are received
         /// </summary>
         public event EventHandler<TradesEventArgs> OnTrades;
+
+        public event EventHandler<SpreadEventArgs> OnSpread;
         
         #endregion
 
