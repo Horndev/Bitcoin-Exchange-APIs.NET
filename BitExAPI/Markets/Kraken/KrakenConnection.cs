@@ -98,8 +98,6 @@ namespace BitExAPI.Markets.Kraken
                         APIName = "kraken",
                         LastTimeUTC_Epoch_e9 = Convert.ToInt64(sinceLastTrade)
                     });
-
-                
             }
 
             return newTrades.ToMarketData();
@@ -107,7 +105,13 @@ namespace BitExAPI.Markets.Kraken
 
         public MarketData RequestSpreads()
         {
-            throw new NotImplementedException();
+            string pair = "XXBTZEUR";
+            //request parameters
+            var p = new Dictionary<string, string>();
+            p.Add("pair",pair);
+            SpreadResponse r = makeRequest<SpreadResponse>("public", "spread", p);
+
+            return r.ToMarketData();
         }
 
         #endregion
@@ -132,6 +136,11 @@ namespace BitExAPI.Markets.Kraken
                 getTradesThread.Start();
         }
 
+        public void Stop()
+        {
+            getTradesThread.Abort();
+        }
+
         #endregion
 
         #region thread workers
@@ -147,5 +156,8 @@ namespace BitExAPI.Markets.Kraken
         }
 
         #endregion
+
+
+
     }
 }

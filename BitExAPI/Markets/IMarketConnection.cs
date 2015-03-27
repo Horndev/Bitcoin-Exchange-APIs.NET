@@ -19,6 +19,7 @@ namespace BitExAPI.Markets
         ///     As data is recieved, the market events will be triggered.
         /// </summary>
         void Start();
+        void Stop();
 
         //---------------------------------------------------------------------
         // Manual Commands
