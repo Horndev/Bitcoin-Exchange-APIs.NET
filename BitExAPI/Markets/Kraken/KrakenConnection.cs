@@ -120,7 +120,8 @@ namespace BitExAPI.Markets.Kraken
             {
                 OnSpread(this, new SpreadEventArgs()
                     {
-                        data = (Spread)r.ToMarketData(),
+                        Data = (Spread)r.ToMarketData(),
+                        LastTimeUTC_epoch = Convert.ToInt64(sinceLastSpread),
                         APIName = "kraken"
                     });
             }

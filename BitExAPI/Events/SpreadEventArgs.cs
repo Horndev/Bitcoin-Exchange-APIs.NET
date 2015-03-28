@@ -9,6 +9,7 @@ namespace BitExAPI.Events
 {
     public class SpreadEventArgs : MarketEventArgs
     {
-        public Spread data;
+        public Spread Data;
+        public Int64 LastTimeUTC_epoch;
     }
 }
