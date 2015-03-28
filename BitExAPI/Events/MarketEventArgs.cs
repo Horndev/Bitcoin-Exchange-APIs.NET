@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BitExAPI.Markets.Data
+namespace BitExAPI.Events
 {
-    public abstract class MarketData
+    public abstract class MarketEventArgs
     {
-
+        public string APIName;
     }
 }

@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace BitExAPI.Events
 {
-    public class TradesEventArgs
+    public class TradesEventArgs : MarketEventArgs
     {
         public Trades data;
-        public string APIName;
         public Int64  LastTimeUTC_Epoch_e9;    //Epoch seconds multiplied by 10^9
 
         public DateTime LastTimeUTC

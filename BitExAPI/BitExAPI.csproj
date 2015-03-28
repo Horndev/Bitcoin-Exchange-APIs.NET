@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\MarketEventArgs.cs" />
     <Compile Include="Events\SpreadEventArgs.cs" />
     <Compile Include="Events\TradesEventArgs.cs" />
     <Compile Include="Markets\Data\MarketData.cs" />

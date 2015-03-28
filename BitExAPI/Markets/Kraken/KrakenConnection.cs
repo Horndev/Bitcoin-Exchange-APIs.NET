@@ -113,6 +113,18 @@ namespace BitExAPI.Markets.Kraken
             p.Add("pair",pair);
             SpreadResponse r = makeRequest<SpreadResponse>("public", "spread", p);
 
+            sinceLastSpread = r.result.last;
+
+            //Trigger event
+            if (OnSpread != null)
+            {
+                OnSpread(this, new SpreadEventArgs()
+                    {
+                        data = (Spread)r.ToMarketData(),
+                        APIName = "kraken"
+                    });
+            }
+
             return r.ToMarketData();
         }
 
