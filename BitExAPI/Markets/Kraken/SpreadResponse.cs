@@ -21,7 +21,7 @@ namespace BitExAPI.Markets.Kraken
                 {
                     TimeUTC = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc) + TimeSpan.FromSeconds(Convert.ToDouble(x.time)),
                     BestBid = x.bestBid,
-                    VestAsk = x.bestAsk
+                    BestAsk = x.bestAsk
                 }).ToList()
             };
 

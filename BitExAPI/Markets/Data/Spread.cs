@@ -18,7 +18,7 @@ namespace BitExAPI.Markets.Data
     {
         public DateTime TimeUTC;
         public decimal BestBid;
-        public decimal VestAsk;
+        public decimal BestAsk;
     }
     
 }
