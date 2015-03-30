@@ -17,8 +17,8 @@ namespace BitExAPI.Markets.Data
     public class SpreadPoint
     {
         public DateTime TimeUTC;
-        public decimal Price;
-        public decimal Volume;
+        public decimal BestBid;
+        public decimal VestAsk;
     }
     
 }

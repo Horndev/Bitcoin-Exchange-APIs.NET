@@ -23,6 +23,7 @@ namespace BitExAPI.Markets.Kraken
         private string sinceLastSpread = "";    // Epoch time of last received data (rounded to the second)
 
         private Thread getTradesThread;
+        private Thread getSpreadsThread;
 
         #region Events
         
@@ -39,6 +40,7 @@ namespace BitExAPI.Markets.Kraken
         {
             client = new RestClient(endpoint);
             getTradesThread = new Thread(new ThreadStart(getTradesWorker));
+            getSpreadsThread = new Thread(new ThreadStart(getSpreadsWorker));
             sinceLastTrade = since;
         }
 
@@ -111,7 +113,8 @@ namespace BitExAPI.Markets.Kraken
             //request parameters
             var p = new Dictionary<string, string>();
             p.Add("pair",pair);
-            SpreadResponse r = makeRequest<SpreadResponse>("public", "spread", p);
+            //https://api.kraken.com/0/public/Spread
+            SpreadResponse r = makeRequest<SpreadResponse>("public", "Spread", p);
 
             sinceLastSpread = r.result.last;
 
@@ -149,6 +152,8 @@ namespace BitExAPI.Markets.Kraken
         {
             if (!getTradesThread.IsAlive)
                 getTradesThread.Start();
+            if (!getSpreadsThread.IsAlive)
+                getSpreadsThread.Start();
         }
 
         public void Stop()
@@ -166,6 +171,16 @@ namespace BitExAPI.Markets.Kraken
             {
                 requestLimiter.EnqueRequest(
                     () => RequestTrades(),      //note that only the events will be triggered
+                    priority: 0);
+            }
+        }
+
+        private void getSpreadsWorker()
+        {
+            while (true)
+            {
+                requestLimiter.EnqueRequest(
+                    () => RequestSpreads(),      //note that only the events will be triggered
                     priority: 0);
             }
         }

@@ -13,7 +13,18 @@ namespace BitExAPI.Markets.Kraken
 
         public override Data.MarketData ToMarketData()
         {
-            return new Spread();
+            return new Spread()
+            {
+                BuyCurrency = Money.Money.Currencies["BTC"],
+                SellCurrency = Money.Money.Currencies["EUR"],
+                SpreadPoints = result.XXBTZEUR.Select(x => new SpreadPoint()
+                {
+                    TimeUTC = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc) + TimeSpan.FromSeconds(Convert.ToDouble(x.time)),
+                    BestBid = x.bestBid,
+                    VestAsk = x.bestAsk
+                }).ToList()
+            };
+
         }
 
         public Resp result { get; set; }
