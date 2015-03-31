@@ -36,12 +36,13 @@ namespace BitExAPI.Markets.Kraken
         
         #endregion
 
-        public KrakenConnection(string since = "")
+        public KrakenConnection(string SinceTrade = "", string SinceSpread = "")
         {
             client = new RestClient(endpoint);
             getTradesThread = new Thread(new ThreadStart(getTradesWorker));
             getSpreadsThread = new Thread(new ThreadStart(getSpreadsWorker));
-            sinceLastTrade = since;
+            sinceLastTrade = SinceTrade;
+            sinceLastSpread = SinceSpread;
         }
 
         #region API commands
@@ -113,6 +114,13 @@ namespace BitExAPI.Markets.Kraken
             //request parameters
             var p = new Dictionary<string, string>();
             p.Add("pair",pair);
+
+            if (sinceLastSpread != "")
+            {
+                string sinceStr = Convert.ToString(sinceLastSpread);
+                p.Add("since", sinceStr);
+            }
+
             //https://api.kraken.com/0/public/Spread
             SpreadResponse r = makeRequest<SpreadResponse>("public", "Spread", p);
 
