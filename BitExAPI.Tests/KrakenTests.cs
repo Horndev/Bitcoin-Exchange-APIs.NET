@@ -7,8 +7,9 @@ namespace BitExAPI.Tests
     public class KrakenTests
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestCreateConnection()
         {
+            Assert.Inconclusive();
         }
     }
 }
