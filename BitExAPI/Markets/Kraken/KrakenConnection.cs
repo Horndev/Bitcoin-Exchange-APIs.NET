@@ -169,6 +169,16 @@ namespace BitExAPI.Markets.Kraken
             getTradesThread.Abort();
         }
 
+        public bool IsRunning
+        {
+            get 
+            {
+                if (getTradesThread.IsAlive && getSpreadsThread.IsAlive)
+                    return true;
+                return false;
+            }
+        }
+
         #endregion
 
         #region thread workers
@@ -194,8 +204,6 @@ namespace BitExAPI.Markets.Kraken
         }
 
         #endregion
-
-
 
     }
 }
