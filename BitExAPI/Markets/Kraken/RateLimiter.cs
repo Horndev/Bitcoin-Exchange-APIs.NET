@@ -32,7 +32,7 @@ namespace BitExAPI.Markets.Kraken
             {
                 if ((DateTime.Now - lastRequestTime) > minWait && counter < 10 - priority)
                 {
-                    //Console.Beep();     //debugging
+                    Console.Beep();     //debugging
 
                     request();
                     counter = counter + cost;

@@ -16,9 +16,14 @@ namespace BitExAPI.Markets.Data
 
     public class SpreadPoint
     {
-        public DateTime TimeUTC;
-        public decimal BestBid;
-        public decimal BestAsk;
+        public DateTime TimeUTC { get; set; }
+        public decimal BestBid { get; set; }
+        public decimal BestAsk { get; set; }
+
+        public override string ToString()
+        {
+            return "Spread: " + TimeUTC.ToLongTimeString() + " : " + Convert.ToString(BestAsk) + "-" + Convert.ToString(BestBid);
+        }
     }
     
 }
