@@ -22,7 +22,7 @@ namespace BitExAPI.Markets.Data
 
         public override string ToString()
         {
-            return "Spread: " + TimeUTC.ToLongTimeString() + " : " + Convert.ToString(BestAsk) + "-" + Convert.ToString(BestBid);
+            return TimeUTC.ToLongTimeString() + " : " + Convert.ToString(BestAsk) + "-" + Convert.ToString(BestBid);
         }
     }
     
