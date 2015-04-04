@@ -47,6 +47,7 @@
     <Compile Include="Markets\Data\Trades.cs" />
     <Compile Include="Markets\IMarketArchive.cs" />
     <Compile Include="Markets\IMarketConnection.cs" />
+    <Compile Include="Markets\IMessagingConnection.cs" />
     <Compile Include="Markets\IRestConnection.cs" />
     <Compile Include="Markets\Kraken\KrakenConnection.cs" />
     <Compile Include="Markets\Kraken\RateLimiter.cs" />
