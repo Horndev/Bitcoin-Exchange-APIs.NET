@@ -1,4 +1,5 @@
 ﻿using BitExAPI.Money;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +17,19 @@ namespace BitExAPI.Markets.Data
 
     public class TradePoint
     {
+        [JsonProperty("t")]
         public DateTime TimeUTC {get; set;}
+
+        [JsonProperty("p")]
         public decimal Price {get; set;}
+
+        [JsonProperty("v")]
         public decimal Volume {get; set;}
+
+        [JsonProperty("y")]
         public string TradeType {get; set;}    // b = buy/bid, s = sell/ask
+
+        [JsonProperty("o")]
         public string OrderType {get; set;}    // m = market l = limit
 
         public override string ToString()

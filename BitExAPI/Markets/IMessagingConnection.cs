@@ -15,8 +15,17 @@ namespace BitExAPI.Markets
         /// <param name="msg"></param>
         void Echo(string msg);
 
-        void TxTrade(TradePoint t);
+        /// <summary>
+        /// TxTrade 
+        /// NOTE: method name is shortened to reduce transmission memory/bandwidth
+        /// </summary>
+        /// <param name="t"></param>
+        void T(TradePoint t);
 
-        void TxSpread(SpreadPoint s);
+        /// <summary>
+        /// TxSpread
+        /// </summary>
+        /// <param name="s"></param>
+        void S(SpreadPoint s);
     }
 }
