@@ -17,8 +17,21 @@ namespace BitExAPI.Markets.Data
 
     public class TradePoint
     {
-        [JsonProperty("t")]
+        [JsonIgnore]
         public DateTime TimeUTC {get; set;}
+
+        [JsonProperty("t")]
+        public long datetime
+        {
+            get
+            {
+                return TimeUTC.ToBinary();
+            }
+            set
+            {
+                TimeUTC = DateTime.FromBinary(value);
+            }
+        }
 
         [JsonProperty("p")]
         public decimal Price {get; set;}

@@ -1,4 +1,5 @@
 ﻿using BitExAPI.Money;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +17,26 @@ namespace BitExAPI.Markets.Data
 
     public class SpreadPoint
     {
+        [JsonIgnore]
         public DateTime TimeUTC { get; set; }
+
+        [JsonProperty("t")]
+        public long datetime
+        {
+            get
+            {
+                return TimeUTC.ToBinary();
+            }
+            set
+            {
+                TimeUTC = DateTime.FromBinary(value);
+            }
+        }
+
+        [JsonProperty("b")]
         public decimal BestBid { get; set; }
+
+        [JsonProperty("a")]
         public decimal BestAsk { get; set; }
 
         public override string ToString()
