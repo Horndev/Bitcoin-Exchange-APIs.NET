@@ -63,6 +63,7 @@
     <Compile Include="Markets\Kraken\Response.cs" />
     <Compile Include="Money\Currencies.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\OHLC.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RestSharp\RestSharp\RestSharp.csproj">
