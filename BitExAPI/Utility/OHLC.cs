@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using BitExAPI.Markets.Data;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,39 @@ namespace BitExAPI.Utility
     /// </summary>
     public static class OHLC
     {
+        public static List<OHLCPoint> Convert(List<TradePoint> trades, TimeSpan period)
+        {
+            List<OHLCPoint> res = new List<OHLCPoint>();
+            var tradeList = trades.OrderBy(t => t.datetime);
+            DateTime time = tradeList.First().TimeUTC;
+            decimal open = tradeList.First().Price;
+            decimal high = tradeList.First().Price;
+            decimal low = tradeList.First().Price;
+            decimal close = tradeList.First().Price;
+            
+            foreach (TradePoint tp in tradeList.Skip(1))
+            {
+                if ((tp.TimeUTC - time) >= period)
+                {
+                    res.Add (new OHLCPoint()
+                    {
+                        TimePeriod = period,
+                        Open = open,
+                        High = high,
+                        Low = low,
+                        Close = tp.Price,
+                        TimeUTC = time
+                    });
+                    time = tp.TimeUTC;
+                    open = tp.Price;
+                    high = tp.Price;
+                    low = tp.Price;
+                }
+                if (tp.Price > high) high = tp.Price;
+                if (tp.Price < low) low = tp.Price;
+            }
+            return res;
+        }
     }
 
 
