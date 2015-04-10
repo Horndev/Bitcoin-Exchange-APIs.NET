@@ -13,7 +13,7 @@ namespace BitExAPI.Markets
         /// Transmit a string message
         /// </summary>
         /// <param name="msg"></param>
-        void Echo(string msg);
+        void E(string msg);
 
         /// <summary>
         /// TxTrade 
