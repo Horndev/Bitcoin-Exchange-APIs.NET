@@ -15,36 +15,50 @@ namespace BitExAPI.Utility
     {
         public static List<OHLCPoint> Convert(List<TradePoint> trades, TimeSpan period)
         {
-            List<OHLCPoint> res = new List<OHLCPoint>();
-            var tradeList = trades.OrderBy(t => t.datetime);
-            DateTime time = tradeList.First().TimeUTC;
-            decimal open = tradeList.First().Price;
-            decimal high = tradeList.First().Price;
-            decimal low = tradeList.First().Price;
-            decimal close = tradeList.First().Price;
-            
-            foreach (TradePoint tp in tradeList.Skip(1))
-            {
-                if ((tp.TimeUTC - time) >= period)
+            //List<OHLCPoint> res = new List<OHLCPoint>();
+            var ticks = trades.OrderBy(t => t.datetime);
+            var periodTicks = period.Ticks;
+            var firsttick = trades.Min(t => t.TimeUTC.Ticks);
+            var res = trades.GroupBy(t => (t.TimeUTC.Ticks - firsttick) / periodTicks, t => t)
+                .Select(g => new OHLCPoint()
                 {
-                    res.Add (new OHLCPoint()
-                    {
-                        TimePeriod = period,
-                        Open = open,
-                        High = high,
-                        Low = low,
-                        Close = tp.Price,
-                        TimeUTC = time
-                    });
-                    time = tp.TimeUTC;
-                    open = tp.Price;
-                    high = tp.Price;
-                    low = tp.Price;
-                }
-                if (tp.Price > high) high = tp.Price;
-                if (tp.Price < low) low = tp.Price;
-            }
-            return res;
+                    TimePeriod = period,
+                    Open = g.First().Price,
+                    High = g.Max(p => p.Price),
+                    Low = g.Min(p => p.Price),
+                    Close = g.Last().Price,
+                    TimeUTC = new DateTime(g.Key * periodTicks + firsttick, DateTimeKind.Utc)
+                });
+            
+
+            //DateTime time = ticks.First().TimeUTC;
+            //decimal open = ticks.First().Price;
+            //decimal high = ticks.First().Price;
+            //decimal low = ticks.First().Price;
+            //decimal close = ticks.First().Price;
+            
+            //foreach (TradePoint tp in ticks.Skip(1))
+            //{
+            //    if ((tp.TimeUTC - time) >= period)
+            //    {
+            //        res.Add (new OHLCPoint()
+            //        {
+            //            TimePeriod = period,
+            //            Open = open,
+            //            High = high,
+            //            Low = low,
+            //            Close = tp.Price,
+            //            TimeUTC = time
+            //        });
+            //        time = tp.TimeUTC;
+            //        open = tp.Price;
+            //        high = tp.Price;
+            //        low = tp.Price;
+            //    }
+            //    if (tp.Price > high) high = tp.Price;
+            //    if (tp.Price < low) low = tp.Price;
+            //}
+            return res.ToList();
         }
     }
 
