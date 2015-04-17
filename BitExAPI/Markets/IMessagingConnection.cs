@@ -1,4 +1,5 @@
 ﻿using BitExAPI.Markets.Data;
+using BitExAPI.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,5 +28,11 @@ namespace BitExAPI.Markets
         /// </summary>
         /// <param name="s"></param>
         void S(SpreadPoint s);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="o"></param>
+        void OHLC(OHLCPoint o);
     }
 }

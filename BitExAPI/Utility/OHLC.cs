@@ -29,35 +29,6 @@ namespace BitExAPI.Utility
                     Close = g.Last().Price,
                     TimeUTC = new DateTime(g.Key * periodTicks + firsttick, DateTimeKind.Utc)
                 });
-            
-
-            //DateTime time = ticks.First().TimeUTC;
-            //decimal open = ticks.First().Price;
-            //decimal high = ticks.First().Price;
-            //decimal low = ticks.First().Price;
-            //decimal close = ticks.First().Price;
-            
-            //foreach (TradePoint tp in ticks.Skip(1))
-            //{
-            //    if ((tp.TimeUTC - time) >= period)
-            //    {
-            //        res.Add (new OHLCPoint()
-            //        {
-            //            TimePeriod = period,
-            //            Open = open,
-            //            High = high,
-            //            Low = low,
-            //            Close = tp.Price,
-            //            TimeUTC = time
-            //        });
-            //        time = tp.TimeUTC;
-            //        open = tp.Price;
-            //        high = tp.Price;
-            //        low = tp.Price;
-            //    }
-            //    if (tp.Price > high) high = tp.Price;
-            //    if (tp.Price < low) low = tp.Price;
-            //}
             return res.ToList();
         }
     }
@@ -65,35 +36,22 @@ namespace BitExAPI.Utility
 
     public class OHLCPoint
     {
-        [JsonIgnore]
+        [JsonProperty("t")]
         public DateTime TimeUTC { get; set; }
 
         [JsonIgnore]
         public TimeSpan TimePeriod { get; set; }
 
-        [JsonProperty("t")]
-        public long datetime
-        {
-            get
-            {
-                return TimeUTC.ToBinary();
-            }
-            set
-            {
-                TimeUTC = DateTime.FromBinary(value);
-            }
-        }
-
         [JsonProperty("p")]
-        public long period
+        public double period
         {
             get
             {
-                return TimePeriod.Ticks;
+                return TimePeriod.TotalSeconds;
             }
             set
             {
-                TimePeriod = TimeSpan.FromTicks(value);
+                TimePeriod = TimeSpan.FromSeconds(value);
             }
         }
 
