@@ -59,6 +59,7 @@
     <Compile Include="Markets\Kraken\RateLimiter.cs" />
     <Compile Include="Markets\Kraken\Request.cs" />
     <Compile Include="Markets\Kraken\SpreadResponse.cs" />
+    <Compile Include="Markets\Kraken\TimeResponse.cs" />
     <Compile Include="Markets\Kraken\TradesResponse.cs" />
     <Compile Include="Markets\Kraken\Response.cs" />
     <Compile Include="Money\Currencies.cs" />
