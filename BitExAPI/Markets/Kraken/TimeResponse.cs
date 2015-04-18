@@ -18,6 +18,11 @@ namespace BitExAPI.Markets.Kraken
             public long unixtime { get; set; }
             public string rfc1123 { get; set; }
         }
+
+        public override Data.MarketData ToMarketData()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 
