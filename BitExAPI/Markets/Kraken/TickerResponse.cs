@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BitExAPI.Markets.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,9 +12,21 @@ namespace BitExAPI.Markets.Kraken
     /// </summary>
     public class TickerResponse : Response
     {
-        public override Data.MarketData ToMarketData()
+        public override MarketData ToMarketData()
         {
             throw new NotImplementedException();
+        }
+
+        public Resp result { get; set; }
+
+        public class Resp
+        {
+            public CurrencyTick XXBTZEUR { get; set; }
+        }
+
+        public class CurrencyTick
+        {
+            public List<decimal> a { get; set; }
         }
     }
 }

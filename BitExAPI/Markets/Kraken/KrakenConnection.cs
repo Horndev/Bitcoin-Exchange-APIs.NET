@@ -15,15 +15,16 @@ namespace BitExAPI.Markets.Kraken
     /// </summary>
     public class KrakenConnection: IMarketConnection, IRestConnection
     {
+        //Kraken default endpoint
         private string endpoint = "https://api.kraken.com/0/";
         private static RateLimiter requestLimiter = new RateLimiter();
-        private RestClient client;
+        private RestClient client; // RestSharp client
 
         private string sinceLastTrade = "";     // Epoch time *10^9 of last received data
         private string sinceLastSpread = "";    // Epoch time of last received data (rounded to the second)
 
-        private Thread getTradesThread;
-        private Thread getSpreadsThread;
+        private Thread getTradesThread; // polling thread
+        private Thread getSpreadsThread; // polling thread
 
         #region Events
         

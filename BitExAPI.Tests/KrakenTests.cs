@@ -11,5 +11,10 @@ namespace BitExAPI.Tests
         {
             Assert.Inconclusive();
         }
+
+        public void TestRequestTicker()
+        {
+            Assert.Inconclusive();
+        }
     }
 }

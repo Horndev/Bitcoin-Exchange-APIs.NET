@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BitExAPI.Markets.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,7 @@ namespace BitExAPI.Markets.Kraken
             public string rfc1123 { get; set; }
         }
 
-        public override Data.MarketData ToMarketData()
+        public override MarketData ToMarketData()
         {
             throw new NotImplementedException();
         }
