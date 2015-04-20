@@ -139,7 +139,12 @@ namespace BitExAPI.Markets.Kraken
             return r.ToMarketData();
         }
 
-        #endregion
+        public MarketData RequestTicker()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion //API commands
 
         public string RestEndpoint
         {
@@ -204,5 +209,8 @@ namespace BitExAPI.Markets.Kraken
 
         #endregion
 
+
+
+        
     }
 }

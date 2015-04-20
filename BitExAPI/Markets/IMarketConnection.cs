@@ -30,6 +30,7 @@ namespace BitExAPI.Markets
 
         MarketData RequestTrades();
         MarketData RequestSpreads();
+        MarketData RequestTicker();
 
     }
 }
