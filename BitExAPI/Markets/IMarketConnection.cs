@@ -29,7 +29,7 @@ namespace BitExAPI.Markets
         // Manual Commands
         //---------------------------------------------------------------------
 
-        MarketData RequestTrades();
+        Trades RequestTrades();
         MarketData RequestSpreads();
         MarketData RequestTicker();
 

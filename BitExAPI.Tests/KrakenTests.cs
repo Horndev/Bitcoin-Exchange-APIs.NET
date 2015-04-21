@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BitExAPI.Markets;
 using BitExAPI.Markets.Kraken;
 using System.Threading;
+using BitExAPI.Markets.Data;
 
 namespace BitExAPI.Tests
 {
@@ -22,6 +23,14 @@ namespace BitExAPI.Tests
 
             connection.StopBackgroundThread();
             Assert.IsFalse(connection.IsRunning);
+        }
+
+        [TestMethod]
+        public void TestRequestTrades()
+        {
+            var connection = new KrakenConnection();
+            Trades t = connection.RequestTrades();
+            Assert.IsTrue(t.TradePoints.Count > 0);
         }
 
         public void TestRequestTicker()

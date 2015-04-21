@@ -71,7 +71,7 @@ namespace BitExAPI.Markets.Kraken
             return response.Data;
         }
 
-        public MarketData RequestTrades()
+        public Trades RequestTrades()
         {
             string pair = "XXBTZEUR";
             //request parameters
@@ -109,7 +109,7 @@ namespace BitExAPI.Markets.Kraken
                 }
             }
 
-            return newTrades.ToMarketData();
+            return newTrades.ToMarketData() as Trades;
         }
 
         public MarketData RequestSpreads()
