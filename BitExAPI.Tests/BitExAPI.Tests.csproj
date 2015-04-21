@@ -53,6 +53,12 @@
     <Compile Include="KrakenTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BitExAPI\BitExAPI.csproj">
+      <Project>{6f600fb5-2d6f-4fc5-807c-acf390a1207e}</Project>
+      <Name>BitExAPI</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

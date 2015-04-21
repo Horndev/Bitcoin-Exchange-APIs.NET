@@ -22,6 +22,7 @@ namespace BitExAPI.Markets.Kraken
 
         private string sinceLastTrade = "";     // Epoch time *10^9 of last received data
         private string sinceLastSpread = "";    // Epoch time of last received data (rounded to the second)
+        private uint tradeCount = 0;            // Number of trades received to date
 
         private Thread getTradesThread; // polling thread
         private Thread getSpreadsThread; // polling thread
@@ -95,14 +96,17 @@ namespace BitExAPI.Markets.Kraken
                 }
                 var t = newTrades.result.XXBTZEUR;
                 sinceLastTrade = newTrades.result.last;
+                tradeCount += Convert.ToUInt32(t.Count);  //Performance counter
 
                 if (OnTrades != null && t.Count > 0)
+                {
                     OnTrades(null, new Events.TradesEventArgs()
                     {
                         data = (Trades)newTrades.ToMarketData(),
                         APIName = "kraken",
                         LastTimeUTC_Epoch_e9 = Convert.ToInt64(sinceLastTrade)
                     });
+                }
             }
 
             return newTrades.ToMarketData();
@@ -172,6 +176,7 @@ namespace BitExAPI.Markets.Kraken
         public void Stop()
         {
             getTradesThread.Abort();
+            getSpreadsThread.Abort();
         }
 
         public bool IsRunning
@@ -182,6 +187,11 @@ namespace BitExAPI.Markets.Kraken
                     return true;
                 return false;
             }
+        }
+
+        public uint TradeCount
+        {
+            get { return tradeCount; }
         }
 
         #endregion
@@ -209,6 +219,9 @@ namespace BitExAPI.Markets.Kraken
         }
 
         #endregion
+
+
+
 
 
 

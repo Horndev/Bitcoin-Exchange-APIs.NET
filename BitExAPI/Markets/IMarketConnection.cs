@@ -23,6 +23,7 @@ namespace BitExAPI.Markets
         void Stop();
 
         bool IsRunning { get; }
+        uint TradeCount { get; } //Number of Trades Received
 
         //---------------------------------------------------------------------
         // Manual Commands
