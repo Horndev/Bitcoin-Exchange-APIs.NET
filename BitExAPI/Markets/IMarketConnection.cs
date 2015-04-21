@@ -1,5 +1,6 @@
 ﻿using BitExAPI.Events;
 using BitExAPI.Markets.Data;
+using BitExAPI.Money;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,12 +27,18 @@ namespace BitExAPI.Markets
         uint TradeCount { get; } //Number of Trades Received
 
         //---------------------------------------------------------------------
+        // Market specific mappings
+        //---------------------------------------------------------------------
+
+        PairsBase Pairs { get; }
+
+        //---------------------------------------------------------------------
         // Manual Commands
         //---------------------------------------------------------------------
 
         Trades RequestTrades();
         MarketData RequestSpreads();
-        MarketData RequestTicker();
+        Ticker RequestTicker();
 
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BitExAPI.Events;
 using BitExAPI.Markets.Data;
+using BitExAPI.Money;
 using RestSharp;
 using RestSharp.Deserializers;
 using System;
@@ -23,6 +24,8 @@ namespace BitExAPI.Markets.Kraken
         private string sinceLastTrade = "";     // Epoch time *10^9 of last received data
         private string sinceLastSpread = "";    // Epoch time of last received data (rounded to the second)
         private uint tradeCount = 0;            // Number of trades received to date
+
+        private PairsBase krakenPairs = new KrakenPairs();
 
         private Thread getTradesThread; // polling thread
         private Thread getSpreadsThread; // polling thread
@@ -144,9 +147,23 @@ namespace BitExAPI.Markets.Kraken
             return r.ToMarketData();
         }
 
-        public MarketData RequestTicker()
+        public Ticker RequestTicker()
         {
-            throw new NotImplementedException();
+            string pair = Pairs.FormatPair("BTC", "EUR");// "XXBTZEUR";
+            var p = new Dictionary<string, string>();
+            p.Add("pair", pair);
+
+            TickerResponse newTicker = makeRequest<TickerResponse>(
+                scope: "public",
+                op: "Ticker",
+                parameters: p);
+
+            return newTicker.ToMarketData() as Ticker;
+        }
+
+        public Money.PairsBase Pairs
+        {
+            get { return krakenPairs; }
         }
 
         #endregion //API commands
@@ -225,6 +242,9 @@ namespace BitExAPI.Markets.Kraken
 
 
 
-        
+
+
+
+
     }
 }

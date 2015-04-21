@@ -30,12 +30,18 @@ namespace BitExAPI.Tests
         {
             var connection = new KrakenConnection();
             Trades t = connection.RequestTrades();
+
+            //By default will return last 1000 trades
             Assert.IsTrue(t.TradePoints.Count > 0);
         }
 
+        [TestMethod]
         public void TestRequestTicker()
         {
-            Assert.Inconclusive();
+            var connection = new KrakenConnection();
+            Ticker t = connection.RequestTicker();
+
+            Assert.IsTrue(t.TradeCount > 0);
         }
     }
 }
