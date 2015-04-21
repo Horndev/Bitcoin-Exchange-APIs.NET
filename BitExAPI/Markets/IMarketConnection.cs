@@ -19,8 +19,8 @@ namespace BitExAPI.Markets
         /// Start a thread to begin receiving data from the exchange.
         ///     As data is recieved, the market events will be triggered.
         /// </summary>
-        void Start();
-        void Stop();
+        void StartBackgroundThread();
+        void StopBackgroundThread();
 
         bool IsRunning { get; }
         uint TradeCount { get; } //Number of Trades Received

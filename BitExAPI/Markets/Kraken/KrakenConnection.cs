@@ -165,7 +165,7 @@ namespace BitExAPI.Markets.Kraken
 
         #region MarketConnection Methods
 
-        public void Start()
+        public void StartBackgroundThread()
         {
             if (!getTradesThread.IsAlive)
                 getTradesThread.Start();
@@ -173,7 +173,7 @@ namespace BitExAPI.Markets.Kraken
                 getSpreadsThread.Start();
         }
 
-        public void Stop()
+        public void StopBackgroundThread()
         {
             getTradesThread.Abort();
             getSpreadsThread.Abort();

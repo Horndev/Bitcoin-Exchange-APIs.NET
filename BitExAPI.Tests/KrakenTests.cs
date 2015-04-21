@@ -15,12 +15,12 @@ namespace BitExAPI.Tests
             IMarketConnection connection;
 
             connection = new KrakenConnection();
-            connection.Start();
+            connection.StartBackgroundThread();
             Thread.Sleep(TimeSpan.FromSeconds(10));
             Assert.IsTrue(connection.IsRunning);
             Assert.IsTrue(connection.TradeCount > 0);
 
-            connection.Stop();
+            connection.StopBackgroundThread();
             Assert.IsFalse(connection.IsRunning);
         }
 
