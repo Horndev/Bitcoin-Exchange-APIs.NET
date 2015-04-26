@@ -238,13 +238,9 @@ namespace BitExAPI.Markets.Kraken
         #endregion
 
 
-
-
-
-
-
-
-
-
+        public T RestRequest<T, R>()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

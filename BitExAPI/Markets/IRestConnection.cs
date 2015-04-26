@@ -9,5 +9,7 @@ namespace BitExAPI.Markets
     public interface IRestConnection
     {
         string RestEndpoint { get; set; }
+
+        T RestRequest<T, R>();
     }
 }
