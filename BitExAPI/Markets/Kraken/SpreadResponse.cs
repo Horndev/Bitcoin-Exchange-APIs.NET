@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BitExAPI.Markets.Kraken
 {
-    public class SpreadResponse: Response
+    public class SpreadResponse: KrakenResponse
     {
         //{"error":[],"result":{"XXBTZEUR":[[1427249283,"228.71756","229.18923"],[1427249283,"228.71756","229.17923"],[1427249286,"22
 

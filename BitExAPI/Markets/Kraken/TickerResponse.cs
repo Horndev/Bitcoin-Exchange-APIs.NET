@@ -10,7 +10,7 @@ namespace BitExAPI.Markets.Kraken
     /// <summary>
     /// https://api.kraken.com/0/public/Ticker
     /// </summary>
-    public class TickerResponse : Response
+    public class TickerResponse : KrakenResponse
     {
         public override MarketData ToMarketData()
         {

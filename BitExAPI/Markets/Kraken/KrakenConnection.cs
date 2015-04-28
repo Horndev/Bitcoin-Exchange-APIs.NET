@@ -153,12 +153,17 @@ namespace BitExAPI.Markets.Kraken
             var p = new Dictionary<string, string>();
             p.Add("pair", pair);
 
-            TickerResponse newTicker = makeRequest<TickerResponse>(
-                scope: "public",
-                op: "Ticker",
+            return RestRequest<TickerResponse, Ticker>(
+                resource: "{scope}/{op}",
+                segments: new Dictionary<string, string>() { { "scope", "public" }, { "op", "Ticker" } },
                 parameters: p);
 
-            return newTicker.ToMarketData() as Ticker;
+            //TickerResponse newTicker = makeRequest<TickerResponse>(
+            //    scope: "public",
+            //    op: "Ticker",
+            //    parameters: p);
+
+            //return newTicker.ToMarketData() as Ticker;
         }
 
         public Money.PairsBase Pairs
@@ -238,9 +243,24 @@ namespace BitExAPI.Markets.Kraken
         #endregion
 
 
-        public T RestRequest<T, R>()
+        public R RestRequest<T, R>(string resource, Dictionary<string, string> segments, Dictionary<string, string> parameters)
+            where T : RestResponse, new()
+            where R : MarketData, new()
         {
-            throw new NotImplementedException();
+            var request = new RestRequest(resource, Method.POST);
+            foreach (var kvp in segments)
+            {
+                request.AddUrlSegment(kvp.Key, kvp.Value);
+            }
+
+            foreach (var param in parameters)
+            {
+                request.AddParameter(param.Key, param.Value);
+            }
+
+            IRestResponse<T> response = client.Execute<T>(request);
+
+            return response.Data.ToMarketData() as R;
         }
     }
 }

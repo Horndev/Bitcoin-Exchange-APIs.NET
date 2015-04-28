@@ -9,7 +9,7 @@ namespace BitExAPI.Markets.Kraken
     /// <summary>
     /// https://api.kraken.com/0/public/AssetPairs
     /// </summary>
-    public class PairsResponse : Response
+    public class PairsResponse : KrakenResponse
     {
         public override Data.MarketData ToMarketData()
         {

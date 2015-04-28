@@ -10,7 +10,7 @@ namespace BitExAPI.Markets.Kraken
     /// <summary>
     /// response from https://api.kraken.com/0/public/Time
     /// </summary>
-    public class TimeResponse : Response
+    public class TimeResponse : KrakenResponse
     {
         public Resp result { get; set; }
 

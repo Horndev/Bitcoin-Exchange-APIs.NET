@@ -6,7 +6,7 @@ using System.Web;
 
 namespace BitExAPI.Markets.Kraken
 {
-    public class TradesResponse : Response
+    public class TradesResponse : KrakenResponse
     {
         public override MarketData ToMarketData()
         {

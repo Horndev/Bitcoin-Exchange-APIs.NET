@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BitExAPI.Markets.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,8 @@ namespace BitExAPI.Markets
     {
         string RestEndpoint { get; set; }
 
-        T RestRequest<T, R>();
+        R RestRequest<T, R>(string resource, Dictionary<string, string> segments, Dictionary<string, string> parameters)
+            where T : RestResponse, new()
+            where R : MarketData, new();
     }
 }

@@ -9,7 +9,7 @@ namespace BitExAPI.Markets.Kraken
     /// <summary>
     /// https://api.kraken.com/0/public/Assets
     /// </summary>
-    public class AssetsResponse : Response
+    public class AssetsResponse : KrakenResponse
     {
 
 

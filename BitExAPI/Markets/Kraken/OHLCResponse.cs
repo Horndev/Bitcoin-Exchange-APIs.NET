@@ -9,7 +9,7 @@ namespace BitExAPI.Markets.Kraken
     /// <summary>
     /// https://api.kraken.com/0/public/OHLC?pair=BTCEUR
     /// </summary>
-    public class OHLCResponse : Response
+    public class OHLCResponse : KrakenResponse
     {
         public override Data.MarketData ToMarketData()
         {

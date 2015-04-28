@@ -9,7 +9,7 @@ namespace BitExAPI.Markets.Kraken
     /// <summary>
     /// https://api.kraken.com/0/public/Depth?pair=btceur&count=100
     /// </summary>
-    public class DepthResponse : Response
+    public class DepthResponse : KrakenResponse
     {
         public override Data.MarketData ToMarketData()
         {

@@ -5,12 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BitExAPI.Markets.Kraken
+namespace BitExAPI.Markets
 {
-    public abstract class Response
+    public abstract class RestResponse
     {
-        public string error { get; set; }
-
         /// <summary>
         /// Convert each response to a standard BitExAPI data object
         /// </summary>
