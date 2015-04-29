@@ -8,7 +8,7 @@ using BitExAPI.Markets.Data;
 namespace BitExAPI.Tests
 {
     [TestClass]
-    public class KrakenTests
+    public class TestKrakenConnection
     {
         [TestMethod]
         public void TestCreateConnection()

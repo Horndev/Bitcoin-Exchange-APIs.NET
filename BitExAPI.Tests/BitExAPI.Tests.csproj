@@ -50,8 +50,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="KrakenTests.cs" />
+    <Compile Include="TestKrakenConnection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestKrakenCrypto.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BitExAPI\BitExAPI.csproj">

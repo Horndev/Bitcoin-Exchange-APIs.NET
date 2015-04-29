@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Crypto\KrakenCrypto.cs" />
     <Compile Include="Events\MarketEventArgs.cs" />
     <Compile Include="Events\SpreadEventArgs.cs" />
     <Compile Include="Events\TradesEventArgs.cs" />
