@@ -166,6 +166,16 @@ namespace BitExAPI.Markets.Kraken
             //return newTicker.ToMarketData() as Ticker;
         }
 
+        public DateTime RequestTime()
+        {
+            var D = RestRequest<TimeResponse, Date>(
+                resource: "{scope}/{op}",
+                segments: new Dictionary<string, string>() { { "scope", "public" }, { "op", "Time" } },
+                parameters: null);
+
+            return D.T;
+        }
+
         public Money.PairsBase Pairs
         {
             get { return krakenPairs; }
@@ -253,6 +263,7 @@ namespace BitExAPI.Markets.Kraken
                 request.AddUrlSegment(kvp.Key, kvp.Value);
             }
 
+            if (parameters != null)
             foreach (var param in parameters)
             {
                 request.AddParameter(param.Key, param.Value);
@@ -262,5 +273,8 @@ namespace BitExAPI.Markets.Kraken
 
             return response.Data.ToMarketData() as R;
         }
+
+
+        
     }
 }

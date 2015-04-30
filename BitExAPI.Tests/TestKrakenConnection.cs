@@ -43,5 +43,14 @@ namespace BitExAPI.Tests
 
             Assert.IsTrue(t.TradeCount > 0);
         }
+
+        [TestMethod]
+        public void TestRequestTime()
+        {
+            var connection = new KrakenConnection();
+            DateTime t = connection.RequestTime();
+
+            Console.WriteLine(t.ToLongDateString());
+        }
     }
 }

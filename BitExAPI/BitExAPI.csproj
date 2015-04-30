@@ -52,6 +52,7 @@
     <Compile Include="Markets\Data\MarketData.cs" />
     <Compile Include="Markets\Data\Spread.cs" />
     <Compile Include="Markets\Data\Ticker.cs" />
+    <Compile Include="Markets\Data\Date.cs" />
     <Compile Include="Markets\Data\Trades.cs" />
     <Compile Include="Markets\IMarketArchive.cs" />
     <Compile Include="Markets\IMarketConnection.cs" />

@@ -22,7 +22,10 @@ namespace BitExAPI.Markets.Kraken
 
         public override MarketData ToMarketData()
         {
-            throw new NotImplementedException();
+            return new Date()
+            {
+                T = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc) + TimeSpan.FromSeconds(Convert.ToDouble(result.unixtime))
+            };
         }
     }
 }
