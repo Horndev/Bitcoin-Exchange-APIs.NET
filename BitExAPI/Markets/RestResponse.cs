@@ -13,6 +13,6 @@ namespace BitExAPI.Markets
         /// Convert each response to a standard BitExAPI data object
         /// </summary>
         /// <returns></returns>
-        public abstract MarketData ToMarketData();
+        public abstract IMarketData ToMarketData();
     }
 }

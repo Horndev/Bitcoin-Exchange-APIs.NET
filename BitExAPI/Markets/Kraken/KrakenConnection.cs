@@ -115,7 +115,7 @@ namespace BitExAPI.Markets.Kraken
             return newTrades.ToMarketData() as Trades;
         }
 
-        public MarketData RequestSpreads()
+        public IMarketData RequestSpreads()
         {
             string pair = "XXBTZEUR";
             //request parameters
@@ -157,13 +157,6 @@ namespace BitExAPI.Markets.Kraken
                 resource: "{scope}/{op}",
                 segments: new Dictionary<string, string>() { { "scope", "public" }, { "op", "Ticker" } },
                 parameters: p);
-
-            //TickerResponse newTicker = makeRequest<TickerResponse>(
-            //    scope: "public",
-            //    op: "Ticker",
-            //    parameters: p);
-
-            //return newTicker.ToMarketData() as Ticker;
         }
 
         public DateTime RequestTime()
@@ -174,6 +167,15 @@ namespace BitExAPI.Markets.Kraken
                 parameters: null);
 
             return D.T;
+        }
+
+        public AssetsResponse GetAssets()
+        {
+            var D = RestRequest<AssetsResponse, AssetsResponse>(
+                resource: "{scope}/{op}",
+                segments: new Dictionary<string, string>() { { "scope", "public" }, { "op", "Assets" } },
+                parameters: null);
+            return D;
         }
 
         public Money.PairsBase Pairs
@@ -255,7 +257,7 @@ namespace BitExAPI.Markets.Kraken
 
         public R RestRequest<T, R>(string resource, Dictionary<string, string> segments, Dictionary<string, string> parameters)
             where T : RestResponse, new()
-            where R : MarketData, new()
+            where R : IMarketData
         {
             var request = new RestRequest(resource, Method.POST);
             foreach (var kvp in segments)
@@ -271,8 +273,11 @@ namespace BitExAPI.Markets.Kraken
 
             IRestResponse<T> response = client.Execute<T>(request);
 
-            return response.Data.ToMarketData() as R;
+            return (R)response.Data.ToMarketData();
         }
+
+
+
 
 
         

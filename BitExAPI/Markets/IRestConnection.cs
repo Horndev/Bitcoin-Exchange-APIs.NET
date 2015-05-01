@@ -13,6 +13,6 @@ namespace BitExAPI.Markets
 
         R RestRequest<T, R>(string resource, Dictionary<string, string> segments, Dictionary<string, string> parameters)
             where T : RestResponse, new()
-            where R : MarketData, new();
+            where R : IMarketData;
     }
 }

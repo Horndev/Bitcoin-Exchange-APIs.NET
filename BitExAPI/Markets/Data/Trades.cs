@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BitExAPI.Markets.Data
 {
-    public class Trades : MarketData
+    public class Trades : IMarketData
     {
         public Currency BuyCurrency;        //This balance increases with bid
         public Currency SellCurrency;       //This balance increases with ask

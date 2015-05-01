@@ -8,7 +8,7 @@ namespace BitExAPI.Markets.Kraken
 {
     public class TradesResponse : KrakenResponse
     {
-        public override MarketData ToMarketData()
+        public override IMarketData ToMarketData()
         {
             Trades t = new Trades();
             t.BuyCurrency = Money.Money.Currencies["BTC"];

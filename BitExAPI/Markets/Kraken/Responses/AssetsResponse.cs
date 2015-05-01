@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BitExAPI.Markets.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,13 +10,22 @@ namespace BitExAPI.Markets.Kraken
     /// <summary>
     /// https://api.kraken.com/0/public/Assets
     /// </summary>
-    public class AssetsResponse : KrakenResponse
+    public class AssetsResponse : KrakenResponse, IMarketData
     {
 
+        public Dictionary<string, Asset> result;
 
-        public override Data.MarketData ToMarketData()
+        public override Data.IMarketData ToMarketData()
         {
             throw new NotImplementedException();
+        }
+
+        public class Asset
+        {
+            public string aclass { get; set; }
+            public string altname { get; set; }
+            public int decimals { get; set; }
+            public int display_decimals { get; set; }
         }
     }
 }

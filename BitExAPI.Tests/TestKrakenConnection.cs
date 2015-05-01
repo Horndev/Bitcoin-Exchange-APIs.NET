@@ -52,5 +52,14 @@ namespace BitExAPI.Tests
 
             Console.WriteLine(t.ToLongDateString());
         }
+
+        [TestMethod]
+        public void TestGetAssets()
+        {
+            var connection = new KrakenConnection();
+            var r = connection.GetAssets();
+
+            Console.WriteLine(r.ToString());
+        }
     }
 }

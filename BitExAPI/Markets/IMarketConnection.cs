@@ -1,5 +1,6 @@
 ﻿using BitExAPI.Events;
 using BitExAPI.Markets.Data;
+using BitExAPI.Markets.Kraken;
 using BitExAPI.Money;
 using System;
 using System.Collections.Generic;
@@ -37,9 +38,9 @@ namespace BitExAPI.Markets
         //---------------------------------------------------------------------
 
         Trades RequestTrades();
-        MarketData RequestSpreads();
+        IMarketData RequestSpreads();
         Ticker RequestTicker();
         DateTime RequestTime();
-
+        AssetsResponse GetAssets();
     }
 }

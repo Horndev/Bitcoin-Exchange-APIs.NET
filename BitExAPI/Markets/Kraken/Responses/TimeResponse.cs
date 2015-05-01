@@ -20,7 +20,7 @@ namespace BitExAPI.Markets.Kraken
             public string rfc1123 { get; set; }
         }
 
-        public override MarketData ToMarketData()
+        public override IMarketData ToMarketData()
         {
             return new Date()
             {

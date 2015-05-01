@@ -11,7 +11,7 @@ namespace BitExAPI.Markets.Kraken
     /// </summary>
     public class DepthResponse : KrakenResponse
     {
-        public override Data.MarketData ToMarketData()
+        public override Data.IMarketData ToMarketData()
         {
             throw new NotImplementedException();
         }

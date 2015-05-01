@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BitExAPI.Markets.Data
 {
-    public abstract class MarketData
+    public interface IMarketData
     {
 
     }

@@ -11,7 +11,7 @@ namespace BitExAPI.Markets.Kraken
     {
         //{"error":[],"result":{"XXBTZEUR":[[1427249283,"228.71756","229.18923"],[1427249283,"228.71756","229.17923"],[1427249286,"22
 
-        public override Data.MarketData ToMarketData()
+        public override Data.IMarketData ToMarketData()
         {
             return new Spread()
             {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BitExAPI.Markets.Data
 {
-    public class Date : MarketData
+    public class Date : IMarketData
     {
         public DateTime T;
     }
