@@ -13,7 +13,7 @@ namespace BitExAPI.Markets.Kraken
     public class AssetsResponse : KrakenResponse, IMarketData
     {
 
-        public Dictionary<string, Asset> result;
+        public Dictionary<string, Asset> result { get; set; }
 
         public override Data.IMarketData ToMarketData()
         {
