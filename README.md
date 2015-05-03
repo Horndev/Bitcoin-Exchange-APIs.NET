@@ -13,6 +13,7 @@ Objectives
 Phase 1 API: (under translation)
 
 - Support for REST polling interface
+- Basic Market utilities such as currencies and assets
 - Exchanges: Kraken
  
 Phase 2 API: (future version)
