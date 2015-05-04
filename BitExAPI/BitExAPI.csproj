@@ -49,6 +49,7 @@
     <Compile Include="Events\MarketEventArgs.cs" />
     <Compile Include="Events\SpreadEventArgs.cs" />
     <Compile Include="Events\TradesEventArgs.cs" />
+    <Compile Include="Events\UserTradeEventArgs.cs" />
     <Compile Include="Markets\Data\Asset.cs" />
     <Compile Include="Markets\Data\MarketData.cs" />
     <Compile Include="Markets\Data\Spread.cs" />
@@ -59,11 +60,13 @@
     <Compile Include="Markets\IMarketConnection.cs" />
     <Compile Include="Markets\IMessagingConnection.cs" />
     <Compile Include="Markets\IRestConnection.cs" />
+    <Compile Include="Markets\Kraken\Requests\KrakenRequest.cs" />
     <Compile Include="Markets\Kraken\Requests\RequestBalance.cs" />
     <Compile Include="Markets\Kraken\Requests\RequestClosedOrders.cs" />
     <Compile Include="Markets\Kraken\Requests\RequestOpenOrders.cs" />
     <Compile Include="Markets\Kraken\Requests\RequestTradeBalance.cs" />
     <Compile Include="Markets\Kraken\Requests\RequestTradeVolume.cs" />
+    <Compile Include="Markets\Kraken\Response.cs" />
     <Compile Include="Markets\Kraken\Responses\AssetsResponse.cs" />
     <Compile Include="Markets\Kraken\Responses\DepthResponse.cs" />
     <Compile Include="Markets\Kraken\KrakenConnection.cs" />
