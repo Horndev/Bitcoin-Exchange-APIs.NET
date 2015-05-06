@@ -72,6 +72,7 @@
     <Compile Include="Markets\Kraken\KrakenConnection.cs" />
     <Compile Include="Markets\Kraken\KrakenPairs.cs" />
     <Compile Include="Markets\Kraken\Responses\OHLCResponse.cs" />
+    <Compile Include="Markets\Kraken\Responses\OpenOrdersResponse.cs" />
     <Compile Include="Markets\Kraken\Responses\PairsResponse.cs" />
     <Compile Include="Markets\Kraken\RateLimiter.cs" />
     <Compile Include="Markets\Kraken\Request.cs" />

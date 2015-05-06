@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BitExAPI.Markets.Kraken.Requests
+namespace BitExAPI.Markets.Kraken.Responses
 {
-    public class RequestOpenOrders
+    public class OpenOrdersResponse: KrakenResponse
     {
-        public bool Trades = false; //whether or not to include trades in output (optional.  default = false)
 
     }
 }
