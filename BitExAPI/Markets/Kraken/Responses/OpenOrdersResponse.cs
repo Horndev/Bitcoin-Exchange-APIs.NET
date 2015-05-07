@@ -9,6 +9,10 @@ namespace BitExAPI.Markets.Kraken.Responses
     public class OpenOrdersResponse: KrakenResponse
     {
 
+        public override Data.IMarketData ToMarketData()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 /*

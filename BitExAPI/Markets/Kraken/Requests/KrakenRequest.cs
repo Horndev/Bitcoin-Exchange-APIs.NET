@@ -8,5 +8,7 @@ namespace BitExAPI.Markets.Kraken.Requests
 {
     public class KrakenRequest
     {
+        public string RestResource;
+        public Dictionary<string, string> RestResourceSegments;
     }
 }

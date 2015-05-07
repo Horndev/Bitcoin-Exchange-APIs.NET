@@ -275,11 +275,5 @@ namespace BitExAPI.Markets.Kraken
 
             return (R)response.Data.ToMarketData();
         }
-
-
-
-
-
-        
     }
 }

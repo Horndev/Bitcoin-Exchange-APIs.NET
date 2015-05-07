@@ -66,6 +66,7 @@
     <Compile Include="Markets\Kraken\Requests\RequestOpenOrders.cs" />
     <Compile Include="Markets\Kraken\Requests\RequestTradeBalance.cs" />
     <Compile Include="Markets\Kraken\Requests\RequestTradeVolume.cs" />
+    <Compile Include="Markets\Kraken\Requests\TradesRequest.cs" />
     <Compile Include="Markets\Kraken\Response.cs" />
     <Compile Include="Markets\Kraken\Responses\AssetsResponse.cs" />
     <Compile Include="Markets\Kraken\Responses\DepthResponse.cs" />
