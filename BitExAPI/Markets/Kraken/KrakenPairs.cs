@@ -12,6 +12,10 @@ namespace BitExAPI.Markets.Kraken
     /// </summary>
     public class KrakenPairs : PairsBase
     {
+        public KrakenPairs(Currency bid, Currency asked)
+            : base(bid, asked)
+        { }
+
         public override string FormatPair(Currency bid, Currency asked)
         {
             throw new NotImplementedException();
@@ -26,6 +30,13 @@ namespace BitExAPI.Markets.Kraken
             if (asked == "EUR")
                 res += "EUR";
             return res;
+        }
+
+        public override string ToString()
+        {
+            string res = "XX";
+            if (bid == )
+            return base.ToString();
         }
     }
 }

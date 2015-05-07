@@ -61,6 +61,7 @@
     <Compile Include="Markets\IMessagingConnection.cs" />
     <Compile Include="Markets\IRestConnection.cs" />
     <Compile Include="Markets\Kraken\Requests\KrakenRequest.cs" />
+    <Compile Include="Markets\Kraken\Requests\KrakenRequestFactory.cs" />
     <Compile Include="Markets\Kraken\Requests\RequestBalance.cs" />
     <Compile Include="Markets\Kraken\Requests\RequestClosedOrders.cs" />
     <Compile Include="Markets\Kraken\Requests\RequestOpenOrders.cs" />

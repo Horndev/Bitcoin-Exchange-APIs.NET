@@ -1,4 +1,4 @@
-﻿using BitExAPI.Money;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ namespace BitExAPI.Markets.Kraken.Requests
         public PairsBase Pair;
         public Int64 SinceTimeUTC_Epoch_e9;
 
-        public TradesRequest()
+        public TradesRequest(PairsBase pair)
         {
             this.RestResource = "{scope}/{op}";
             this.RestResourceSegments = new Dictionary<string, string>() { { "scope", "public" }, { "op", "Time" } };

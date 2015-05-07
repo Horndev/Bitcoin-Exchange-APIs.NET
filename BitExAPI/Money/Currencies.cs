@@ -1,19 +1,20 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BitExAPI.Money
+namespace BitExAPI
 {
     public static class Money
     {
         /// <summary>
         /// Currencies supported by API.  There should be a standard translation between the platform and each market/exchange.
         /// </summary>
-        public static Dictionary<string, Currency> Currencies = new Dictionary<string, Currency>()
+        public static Dictionary<string, BitExAPI.Currency> Currencies = new Dictionary<string, BitExAPI.Currency>()
         {
-            {"BTC", new Currency() 
+            {"BTC", new BitExAPI.Currency() 
                 { 
                     ThreeLetter = "BTC", 
                     FullName = "Bitcoin", 
@@ -21,14 +22,14 @@ namespace BitExAPI.Money
                 }
             },
 
-            {"EUR", new Currency() 
+            {"EUR", new BitExAPI.Currency() 
                 {
                     ThreeLetter = "EUR", 
                     FullName = "Euro", 
                     precision = 4
                 }
             },
-            {"USD", new Currency() 
+            {"USD", new BitExAPI.Currency() 
                 {
                     ThreeLetter = "USD", 
                     FullName = "United States Dollars", 
@@ -37,7 +38,10 @@ namespace BitExAPI.Money
             }
         };
     }
+}
 
+namespace BitExAPI
+{
     public class Currency
     {
         public string ThreeLetter;

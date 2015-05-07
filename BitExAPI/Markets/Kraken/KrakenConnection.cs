@@ -1,5 +1,6 @@
 ﻿using BitExAPI.Events;
 using BitExAPI.Markets.Data;
+using BitExAPI.Markets.Kraken.Requests;
 using BitExAPI.Money;
 using RestSharp;
 using RestSharp.Deserializers;
@@ -76,6 +77,9 @@ namespace BitExAPI.Markets.Kraken
 
         public Trades RequestTrades()
         {
+            KrakenRequest req = KrakenRequestFactory.CreateTradesRequest(
+                pair: new KrakenPairs(Money.Currencies["BTC"], Money.Currencies["EUR"]));
+
             string pair = "XXBTZEUR";
             //request parameters
             var p = new Dictionary<string, string>();
