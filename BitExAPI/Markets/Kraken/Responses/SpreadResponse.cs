@@ -15,8 +15,8 @@ namespace BitExAPI.Markets.Kraken
         {
             return new Spread()
             {
-                BuyCurrency = Money.Money.Currencies["BTC"],
-                SellCurrency = Money.Money.Currencies["EUR"],
+                BuyCurrency = Money.Currencies["BTC"],
+                SellCurrency = Money.Currencies["EUR"],
                 SpreadPoints = result.XXBTZEUR.Select(x => new SpreadPoint()
                 {
                     TimeUTC = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc) + TimeSpan.FromSeconds(Convert.ToDouble(x.time)),

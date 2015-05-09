@@ -1,7 +1,6 @@
 ﻿using BitExAPI.Events;
 using BitExAPI.Markets.Data;
 using BitExAPI.Markets.Kraken;
-using BitExAPI.Money;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,12 +25,6 @@ namespace BitExAPI.Markets
 
         bool IsRunning { get; }
         uint TradeCount { get; } //Number of Trades Received
-
-        //---------------------------------------------------------------------
-        // Market specific mappings
-        //---------------------------------------------------------------------
-
-        PairsBase Pairs { get; }
 
         //---------------------------------------------------------------------
         // Manual Commands

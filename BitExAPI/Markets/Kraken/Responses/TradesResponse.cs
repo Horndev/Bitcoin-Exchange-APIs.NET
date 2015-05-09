@@ -11,8 +11,8 @@ namespace BitExAPI.Markets.Kraken
         public override IMarketData ToMarketData()
         {
             Trades t = new Trades();
-            t.BuyCurrency = Money.Money.Currencies["BTC"];
-            t.SellCurrency = Money.Money.Currencies["EUR"];
+            t.BuyCurrency = Money.Currencies["BTC"];
+            t.SellCurrency = Money.Currencies["EUR"];
             t.TradePoints = result.XXBTZEUR.Select(x =>
                 new TradePoint() { 
                     OrderType = x.IsMarket ? "m" : "l",

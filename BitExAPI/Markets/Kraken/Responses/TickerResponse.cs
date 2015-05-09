@@ -24,8 +24,8 @@ namespace BitExAPI.Markets.Kraken
                 TradeCount = result.XXBTZEUR.t[0],
                 Volume = result.XXBTZEUR.v[0],
                 VWAP = result.XXBTZEUR.p[0],
-                BuyCurrency = Money.Money.Currencies["BTC"],
-                SellCurrency = Money.Money.Currencies["EUR"]
+                BuyCurrency = Money.Currencies["BTC"],
+                SellCurrency = Money.Currencies["EUR"]
             };
             return t;
         }

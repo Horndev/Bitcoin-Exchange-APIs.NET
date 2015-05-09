@@ -1,7 +1,6 @@
 ﻿using BitExAPI.Events;
 using BitExAPI.Markets.Data;
 using BitExAPI.Markets.Kraken.Requests;
-using BitExAPI.Money;
 using RestSharp;
 using RestSharp.Deserializers;
 using System;
@@ -25,8 +24,6 @@ namespace BitExAPI.Markets.Kraken
         private string sinceLastTrade = "";     // Epoch time *10^9 of last received data
         private string sinceLastSpread = "";    // Epoch time of last received data (rounded to the second)
         private uint tradeCount = 0;            // Number of trades received to date
-
-        private PairsBase krakenPairs = new KrakenPairs();
 
         private Thread getTradesThread; // polling thread
         private Thread getSpreadsThread; // polling thread
@@ -75,48 +72,65 @@ namespace BitExAPI.Markets.Kraken
             return response.Data;
         }
 
+        public R RestRequest<T, R>(string resource, Dictionary<string, string> segments, Dictionary<string, string> parameters)
+            where T : RestResponse, new()
+            where R : IMarketData
+        {
+            var request = new RestRequest(resource, Method.POST);
+            foreach (var kvp in segments)
+            {
+                request.AddUrlSegment(kvp.Key, kvp.Value);
+            }
+
+            if (parameters != null)
+                foreach (var param in parameters)
+                {
+                    request.AddParameter(param.Key, param.Value);
+                }
+
+            IRestResponse<T> response = client.Execute<T>(request);
+
+            return (R)response.Data.ToMarketData();
+        }
+
         public Trades RequestTrades()
         {
             KrakenRequest req = KrakenRequestFactory.CreateTradesRequest(
-                pair: new KrakenPairs(Money.Currencies["BTC"], Money.Currencies["EUR"]));
+                pair: new KrakenPair(Money.Currencies["BTC"], Money.Currencies["EUR"]),
+                since: sinceLastTrade);
 
-            string pair = "XXBTZEUR";
-            //request parameters
-            var p = new Dictionary<string, string>();
-            p.Add("pair",pair);
-            if (sinceLastTrade != "")
-            {
-                string sinceStr = Convert.ToString(sinceLastTrade);
-                p.Add("since", sinceStr);
-            }
+            return req.Execute(connection: this) as Trades;
 
-            TradesResponse newTrades = makeRequest<TradesResponse>(
-                scope: "public",
-                op: "Trades",
-                parameters: p);//response2.Data;
+            
+            ////request parameters
 
-            if (newTrades != null)
-            {
-                if (newTrades.error == "[\"EAPI:Rate limit exceeded\"]")
-                {
-                    throw new Exception("Rate Limit Exceeded");
-                }
-                var t = newTrades.result.XXBTZEUR;
-                sinceLastTrade = newTrades.result.last;
-                tradeCount += Convert.ToUInt32(t.Count);  //Performance counter
+            //TradesResponse newTrades = makeRequest<TradesResponse>(
+            //    scope: "public",
+            //    op: "Trades",
+            //    parameters: p);//response2.Data;
 
-                if (OnTrades != null && t.Count > 0)
-                {
-                    OnTrades(null, new Events.TradesEventArgs()
-                    {
-                        data = (Trades)newTrades.ToMarketData(),
-                        APIName = "kraken",
-                        LastTimeUTC_Epoch_e9 = Convert.ToInt64(sinceLastTrade)
-                    });
-                }
-            }
+            //if (newTrades != null)
+            //{
+            //    if (newTrades.error == "[\"EAPI:Rate limit exceeded\"]")
+            //    {
+            //        throw new Exception("Rate Limit Exceeded");
+            //    }
+            //    var t = newTrades.result.XXBTZEUR;
+            //    sinceLastTrade = newTrades.result.last;
+            //    tradeCount += Convert.ToUInt32(t.Count);  //Performance counter
 
-            return newTrades.ToMarketData() as Trades;
+            //    if (OnTrades != null && t.Count > 0)
+            //    {
+            //        OnTrades(null, new Events.TradesEventArgs()
+            //        {
+            //            data = (Trades)newTrades.ToMarketData(),
+            //            APIName = "kraken",
+            //            LastTimeUTC_Epoch_e9 = Convert.ToInt64(sinceLastTrade)
+            //        });
+            //    }
+            //}
+
+            //return newTrades.ToMarketData() as Trades;
         }
 
         public IMarketData RequestSpreads()
@@ -153,7 +167,7 @@ namespace BitExAPI.Markets.Kraken
 
         public Ticker RequestTicker()
         {
-            string pair = Pairs.FormatPair("BTC", "EUR");// "XXBTZEUR";
+            string pair = new KrakenPair(Money.Currencies["BTC"], Money.Currencies["EUR"]).ToString();
             var p = new Dictionary<string, string>();
             p.Add("pair", pair);
 
@@ -180,11 +194,6 @@ namespace BitExAPI.Markets.Kraken
                 segments: new Dictionary<string, string>() { { "scope", "public" }, { "op", "Assets" } },
                 parameters: null);
             return D;
-        }
-
-        public Money.PairsBase Pairs
-        {
-            get { return krakenPairs; }
         }
 
         #endregion //API commands
@@ -258,26 +267,9 @@ namespace BitExAPI.Markets.Kraken
 
         #endregion
 
-
-        public R RestRequest<T, R>(string resource, Dictionary<string, string> segments, Dictionary<string, string> parameters)
-            where T : RestResponse, new()
-            where R : IMarketData
+        RestClient IRestConnection.client
         {
-            var request = new RestRequest(resource, Method.POST);
-            foreach (var kvp in segments)
-            {
-                request.AddUrlSegment(kvp.Key, kvp.Value);
-            }
-
-            if (parameters != null)
-            foreach (var param in parameters)
-            {
-                request.AddParameter(param.Key, param.Value);
-            }
-
-            IRestResponse<T> response = client.Execute<T>(request);
-
-            return (R)response.Data.ToMarketData();
+            get { return client; }
         }
     }
 }
