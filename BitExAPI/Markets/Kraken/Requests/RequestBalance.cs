@@ -10,7 +10,8 @@ namespace BitExAPI.Markets.Kraken.Requests
     /// <summary>
     /// https://api.kraken.com/0/private/Balance
     /// </summary>
-    public class RequestBalance
+    public class RequestBalance : KrakenRequest
     {
+
     }
 }

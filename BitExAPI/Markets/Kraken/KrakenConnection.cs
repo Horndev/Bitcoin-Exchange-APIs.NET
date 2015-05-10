@@ -100,7 +100,6 @@ namespace BitExAPI.Markets.Kraken
                 since: sinceLastTrade);
 
             return req.Execute(connection: this) as Trades;
-
             
             ////request parameters
 
@@ -196,6 +195,12 @@ namespace BitExAPI.Markets.Kraken
             return D;
         }
 
+        public void GetBalances()
+        {
+
+            throw new NotImplementedException();
+        }
+
         #endregion //API commands
 
         public string RestEndpoint
@@ -271,5 +276,8 @@ namespace BitExAPI.Markets.Kraken
         {
             get { return client; }
         }
+
+
+        
     }
 }

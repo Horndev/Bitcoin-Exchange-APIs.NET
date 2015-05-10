@@ -35,5 +35,7 @@ namespace BitExAPI.Markets
         Ticker RequestTicker();
         DateTime RequestTime();
         AssetsResponse GetAssets();
+
+        void GetBalances();
     }
 }

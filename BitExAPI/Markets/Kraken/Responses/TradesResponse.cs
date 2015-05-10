@@ -1,4 +1,5 @@
 ﻿using BitExAPI.Markets.Data;
+using RestSharp.Deserializers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace BitExAPI.Markets.Kraken
             Trades t = new Trades();
             t.BuyCurrency = Money.Currencies["BTC"];
             t.SellCurrency = Money.Currencies["EUR"];
-            t.TradePoints = result.XXBTZEUR.Select(x =>
+            t.TradePoints = result.trades.Select(x =>
                 new TradePoint() { 
                     OrderType = x.IsMarket ? "m" : "l",
                     Price = x.price,
@@ -30,9 +31,11 @@ namespace BitExAPI.Markets.Kraken
         public class Resp
         {
             //<price>, <volume>, <time>, <buy/sell>, <market/limit>, <miscellaneous>
-            public List<X> XXBTZEUR {get;set;}
+            [DeserializeAs(Name = "XXBTZEUR")]
+            public List<X> trades {get;set;}
             public string last { get; set; }
         }
+
 
         public class X : List<object>
         {
