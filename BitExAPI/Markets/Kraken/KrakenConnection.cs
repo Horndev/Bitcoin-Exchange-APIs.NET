@@ -28,6 +28,9 @@ namespace BitExAPI.Markets.Kraken
         private Thread getTradesThread; // polling thread
         private Thread getSpreadsThread; // polling thread
 
+        private string privateKey;
+        private string APIKey;
+
         #region Events
         
         /// <summary>
@@ -38,13 +41,15 @@ namespace BitExAPI.Markets.Kraken
         
         #endregion
 
-        public KrakenConnection(string SinceTrade = "", string SinceSpread = "")
+        public KrakenConnection(string SinceTrade = "", string SinceSpread = "", string privateKey = "", string APIKey = "")
         {
             client = new RestClient(endpoint);
             getTradesThread = new Thread(new ThreadStart(getTradesWorker));
             getSpreadsThread = new Thread(new ThreadStart(getSpreadsWorker));
             sinceLastTrade = SinceTrade;
             sinceLastSpread = SinceSpread;
+            this.privateKey = privateKey;
+            this.APIKey = APIKey;
         }
 
         #region API commands
