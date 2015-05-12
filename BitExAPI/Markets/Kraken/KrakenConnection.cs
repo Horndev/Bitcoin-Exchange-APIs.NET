@@ -52,6 +52,20 @@ namespace BitExAPI.Markets.Kraken
             this.APIKey = APIKey;
         }
 
+        #region Settings
+
+        public void SetAPIKey(string key)
+        {
+            APIKey = key;
+        }
+
+        public void SetPrivateKey(string key)
+        {
+            privateKey = key;
+        }
+
+        #endregion //settings
+
         #region API commands
 
         /// <summary>
@@ -281,8 +295,5 @@ namespace BitExAPI.Markets.Kraken
         {
             get { return client; }
         }
-
-
-        
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net;
 using System.IO;
 using BitExAPI.Crypto;
+using BitExAPI.Markets.Kraken;
 
 namespace TraderCrypto.Tests
 {
@@ -12,9 +13,9 @@ namespace TraderCrypto.Tests
         [TestMethod]
         public void TestHMAC()
         {
-            Assert.Inconclusive();
-            string secret = System.IO.File.ReadAllText(@"L:\kraken\pr.txt");
-            string key = System.IO.File.ReadAllText(@"L:\kraken\pu.txt");
+            //Assert.Inconclusive();
+            string key = File.ReadAllText(@"L:\ReadOnlyPu.txt");
+            string secret = File.ReadAllText(@"L:\ReadOnlyPr.txt");
 
             KrakenCrypto connection = new KrakenCrypto(key, secret);
 
@@ -53,6 +54,17 @@ namespace TraderCrypto.Tests
             }
 
             Console.WriteLine(response);
+        }
+
+        [TestMethod]
+        public void TestKrakenSecureConnection()
+        {
+            var connection = new KrakenConnection();
+            string APIKey = File.ReadAllText(@"L:\ReadOnlyPu.txt");
+            string PrvKey = File.ReadAllText(@"L:\ReadOnlyPr.txt");
+            connection.SetAPIKey(APIKey);
+            connection.SetPrivateKey(PrvKey);
+
         }
     }
 }

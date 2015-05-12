@@ -26,6 +26,9 @@ namespace BitExAPI.Markets
         bool IsRunning { get; }
         uint TradeCount { get; } //Number of Trades Received
 
+        void SetAPIKey(string key);
+        void SetPrivateKey(string key);
+
         //---------------------------------------------------------------------
         // Manual Commands
         //---------------------------------------------------------------------
