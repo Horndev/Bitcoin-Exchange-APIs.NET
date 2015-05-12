@@ -12,13 +12,19 @@ namespace BitExAPI.Markets.Kraken
         public override IMarketData ToMarketData()
         {
             Trades t = new Trades();
-            t.BuyCurrency = Money.Currencies["BTC"];
-            t.SellCurrency = Money.Currencies["EUR"];
-            t.TradePoints = result.trades.Select(x =>
-                new TradePoint() { 
+            var kvp = result.First();
+            string tradesKrakenPair = kvp.Key;
+            KrakenPair pair = new KrakenPair(tradesKrakenPair);
+            t.BuyCurrency = pair.Bid;
+            t.SellCurrency = pair.Ask;
+            var tradepoints = kvp.Value;
+            var last = Convert.ToString(result.Last().Value[0][0]);
+            t.TradePoints = tradepoints.Select(x =>
+                new TradePoint()
+                {
                     OrderType = x.IsMarket ? "m" : "l",
                     Price = x.price,
-                    TimeUTC =  new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc) + TimeSpan.FromSeconds(Convert.ToDouble(x.time)),
+                    TimeUTC = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc) + TimeSpan.FromSeconds(Convert.ToDouble(x.time)),
                     TradeType = x.TradeType,
                     Volume = x.volume
                 }
@@ -26,16 +32,7 @@ namespace BitExAPI.Markets.Kraken
             return t;
         }
 
-        public Resp result {get;set;}
-        
-        public class Resp
-        {
-            //<price>, <volume>, <time>, <buy/sell>, <market/limit>, <miscellaneous>
-            [DeserializeAs(Name = "XXBTZEUR")]
-            public List<X> trades {get;set;}
-            public string last { get; set; }
-        }
-
+        public Dictionary<string, List<X>> result { get; set; }
 
         public class X : List<object>
         {

@@ -16,5 +16,15 @@ namespace BitExAPI
             _bid = bid;
             _asked = asked;
         }
+
+        public Currency Bid
+        {
+            get { return _bid; }
+        }
+
+        public Currency Ask
+        {
+            get { return _asked; }
+        }
     }
 }
