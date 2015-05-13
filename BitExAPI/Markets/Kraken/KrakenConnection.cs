@@ -1,4 +1,5 @@
-﻿using BitExAPI.Events;
+﻿using BitExAPI.Crypto;
+using BitExAPI.Events;
 using BitExAPI.Markets.Data;
 using BitExAPI.Markets.Kraken.Requests;
 using RestSharp;
@@ -31,6 +32,8 @@ namespace BitExAPI.Markets.Kraken
         private string privateKey;
         private string APIKey;
 
+        private KrakenCrypto crypto;
+
         #region Events
         
         /// <summary>
@@ -50,6 +53,9 @@ namespace BitExAPI.Markets.Kraken
             sinceLastSpread = SinceSpread;
             this.privateKey = privateKey;
             this.APIKey = APIKey;
+
+            if (this.APIKey != "" && this.privateKey != "")
+                crypto = new KrakenCrypto(APIKey, privateKey);
         }
 
         #region Settings
@@ -57,11 +63,15 @@ namespace BitExAPI.Markets.Kraken
         public void SetAPIKey(string key)
         {
             APIKey = key;
+            if (this.APIKey != "" && this.privateKey != "")
+                crypto = new KrakenCrypto(APIKey, privateKey);
         }
 
         public void SetPrivateKey(string key)
         {
             privateKey = key;
+            if (this.APIKey != "" && this.privateKey != "")
+                crypto = new KrakenCrypto(APIKey, privateKey);
         }
 
         #endregion //settings
