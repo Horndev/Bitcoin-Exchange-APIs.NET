@@ -14,6 +14,8 @@ namespace BitExAPI.Markets.Kraken.Requests
         public string RestResource;
         public Dictionary<string, string> RestResourceSegments;
 
+        public Dictionary<string, string> RequestHeaders = new Dictionary<string,string>();
+
         protected KrakenCrypto crypto = null;
 
         public virtual IMarketData Execute(IRestConnection connection)
@@ -35,6 +37,11 @@ namespace BitExAPI.Markets.Kraken.Requests
                 {
                     request.AddParameter(param.Key, param.Value);
                 }
+
+            foreach (var h in RequestHeaders)
+            {
+                request.AddHeader(h.Key, h.Value);
+            }
 
             IRestResponse<T> response = connection.client.Execute<T>(request);
 
