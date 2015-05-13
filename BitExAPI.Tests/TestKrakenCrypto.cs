@@ -14,8 +14,8 @@ namespace TraderCrypto.Tests
         public void TestHMAC()
         {
             //Assert.Inconclusive();
-            string key = File.ReadAllText(@"L:\ReadOnlyPu.txt");
-            string secret = File.ReadAllText(@"L:\ReadOnlyPr.txt");
+            string key = File.ReadAllText(@"L:\Pu.txt");
+            string secret = File.ReadAllText(@"L:\Pr.txt");
 
             KrakenCrypto connection = new KrakenCrypto(key, secret);
 
@@ -67,4 +67,40 @@ namespace TraderCrypto.Tests
 
         }
     }
+
+    /* MATLAB code for signed requests
+     * function [ res, extra ] = HTTPPOST( connection, url, path, par )
+%HTTPPOST Summary of this function goes here
+%   Detailed explanation goes here
+
+nonce = char(connection.crypto.GetNonce());
+
+if ~isempty(par)
+    params = [par(:)'];
+    [paramString, header] = http_paramsToString(params,1);
+else
+    paramString = '';
+end
+
+sign = char(connection.crypto.Sign_POST_HMAC512A(path, nonce, paramString));
+
+if ~isempty(par)
+    params = ['nonce' nonce par(:)'];
+    [paramString,header] = http_paramsToString(params,1);
+else
+    params = {'nonce' nonce};
+    [paramString,header] = http_paramsToString(params,1);
+end
+
+header2 = http_createHeader('API-Key', connection.key);
+header3 = http_createHeader('API-Sign', sign);
+headerua = http_createHeader('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36');
+
+[res extra] = urlread2(strcat(url,path), 'POST', paramString,...
+    [headerua header header2 header3 ]);
+
+end
+
+
+    */
 }

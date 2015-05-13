@@ -1,4 +1,5 @@
-﻿using BitExAPI.Markets.Data;
+﻿using BitExAPI.Crypto;
+using BitExAPI.Markets.Data;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,8 @@ namespace BitExAPI.Markets.Kraken.Requests
     {
         public string RestResource;
         public Dictionary<string, string> RestResourceSegments;
+
+        protected KrakenCrypto crypto = null;
 
         public virtual IMarketData Execute(IRestConnection connection)
         {

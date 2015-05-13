@@ -12,6 +12,14 @@ namespace BitExAPI.Markets.Kraken.Requests
     /// </summary>
     public class RequestBalance : KrakenRequest
     {
+        public RequestBalance()
+        {
+            if (crypto == null)
+            {
+                //load
+            }
+        }
+
 
     }
 }
