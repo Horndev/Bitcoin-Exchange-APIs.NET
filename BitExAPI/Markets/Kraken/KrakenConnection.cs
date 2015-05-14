@@ -29,6 +29,8 @@ namespace BitExAPI.Markets.Kraken
         private Thread getTradesThread; // polling thread
         private Thread getSpreadsThread; // polling thread
 
+        private bool pollSpreads = false;
+
         private string privateKey;
         private string APIKey;
 
@@ -250,14 +252,14 @@ namespace BitExAPI.Markets.Kraken
         {
             if (!getTradesThread.IsAlive)
                 getTradesThread.Start();
-            if (!getSpreadsThread.IsAlive)
+            if (pollSpreads && !getSpreadsThread.IsAlive)
                 getSpreadsThread.Start();
         }
 
         public void StopBackgroundThread()
         {
             getTradesThread.Abort();
-            getSpreadsThread.Abort();
+            if (pollSpreads) getSpreadsThread.Abort();
         }
 
         public bool IsRunning
