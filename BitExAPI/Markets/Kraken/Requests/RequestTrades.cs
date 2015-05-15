@@ -8,26 +8,26 @@ using System.Threading.Tasks;
 
 namespace BitExAPI.Markets.Kraken.Requests
 {
-    public class TradesRequest : KrakenRequest
+    public class RequestTrades : KrakenRequest
     {
         private PairsBase Pair;
         private Int64 SinceTimeUTC_Epoch_e9;
 
-        public TradesRequest(PairsBase pair)
+        public RequestTrades(PairsBase pair)
         {
-            this.RestResource = "{scope}/{op}";
+            this.RestResource = "/0/{scope}/{op}";
             this.RestResourceSegments = new Dictionary<string, string>() { { "scope", "public" }, { "op", "Trades" } };
             this.Pair = pair;
             this.SinceTimeUTC_Epoch_e9 = 0;
         }
 
-        public TradesRequest(PairsBase pair, Int64 since)
+        public RequestTrades(PairsBase pair, Int64 since)
             : this(pair)
         {
             this.SinceTimeUTC_Epoch_e9 = since;
         }
 
-        public TradesRequest(PairsBase pair, string since)
+        public RequestTrades(PairsBase pair, string since)
             : this(pair)
         {
             if (since != "")
@@ -36,14 +36,14 @@ namespace BitExAPI.Markets.Kraken.Requests
 
         public override IMarketData Execute(IRestConnection connection)
         {
+            this._connection = connection;
             string pair = Pair.ToString();
-            var p = new Dictionary<string, string>();
 
-            p.Add("pair", pair);
+            RestParameters.Add("pair", pair);
             if (SinceTimeUTC_Epoch_e9 != 0)
-                p.Add("since", Convert.ToString(SinceTimeUTC_Epoch_e9));
+                RestParameters.Add("since", Convert.ToString(SinceTimeUTC_Epoch_e9));
 
-            TradesResponse tr = restRequest<TradesResponse>(connection, RestResource, RestResourceSegments, p);
+            TradesResponse tr = restRequest<TradesResponse>();
 
             return tr.ToMarketData();
         }

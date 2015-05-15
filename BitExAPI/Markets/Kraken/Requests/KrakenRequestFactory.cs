@@ -7,16 +7,24 @@ using System.Threading.Tasks;
 
 namespace BitExAPI.Markets.Kraken.Requests
 {
+    /// <summary>
+    /// Create Requests from the exchange
+    /// </summary>
     public static class KrakenRequestFactory
     {
-        public static KrakenRequest CreateTradesRequest(PairsBase pair, long since)
+        public static KrakenRequest Trades(PairsBase pair, long since)
         {
-            return new TradesRequest(pair, since);
+            return new RequestTrades(pair, since);
         }
 
-        public static KrakenRequest CreateTradesRequest(PairsBase pair, string since)
+        public static KrakenRequest Trades(PairsBase pair, string since)
         {
-            return new TradesRequest(pair, since);
+            return new RequestTrades(pair, since);
+        }
+
+        public static KrakenRequest WalletBalance()
+        {
+            return new RequestWalletBalance();
         }
     }
 }

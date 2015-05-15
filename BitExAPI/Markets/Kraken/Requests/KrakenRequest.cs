@@ -13,27 +13,36 @@ namespace BitExAPI.Markets.Kraken.Requests
     {
         public string RestResource;
         public Dictionary<string, string> RestResourceSegments;
-
+        public Dictionary<string, string> RestParameters;
         public Dictionary<string, string> RequestHeaders = new Dictionary<string,string>();
+        protected IRestConnection _connection = null;
 
-        protected KrakenCrypto crypto = null;
 
         public virtual IMarketData Execute(IRestConnection connection)
         {
             return null;
         }
 
-        protected T restRequest<T>(IRestConnection connection, string resource, Dictionary<string, string> segments, Dictionary<string, string> parameters)
+        protected T restRequest<T>()
             where T : RestResponse, new()
         {
-            var request = new RestRequest(resource, Method.POST);
-            foreach (var kvp in segments)
+            var request = createRequest();
+
+            IRestResponse<T> response = _connection.client.Execute<T>(request);
+
+            return response.Data;
+        }
+
+        protected RestRequest createRequest()
+        {
+            var request = new RestRequest(RestResource, Method.POST);
+            foreach (var kvp in RestResourceSegments)
             {
                 request.AddUrlSegment(kvp.Key, kvp.Value);
             }
 
-            if (parameters != null)
-                foreach (var param in parameters)
+            if (RestParameters != null)
+                foreach (var param in RestParameters)
                 {
                     request.AddParameter(param.Key, param.Value);
                 }
@@ -42,10 +51,7 @@ namespace BitExAPI.Markets.Kraken.Requests
             {
                 request.AddHeader(h.Key, h.Value);
             }
-
-            IRestResponse<T> response = connection.client.Execute<T>(request);
-
-            return response.Data;
+            return request;
         }
     }
 }

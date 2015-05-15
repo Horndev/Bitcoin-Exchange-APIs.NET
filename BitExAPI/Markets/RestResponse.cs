@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace BitExAPI.Markets
 {
+    /// <summary>
+    /// All Exchange response objects inherit from this.  The ToMarketData method must be defined to normalize from the exchange formats to the standard BitEx format.
+    /// </summary>
     public abstract class RestResponse
     {
         /// <summary>

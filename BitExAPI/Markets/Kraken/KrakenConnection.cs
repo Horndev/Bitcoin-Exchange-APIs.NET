@@ -18,7 +18,7 @@ namespace BitExAPI.Markets.Kraken
     public class KrakenConnection: IMarketConnection, IRestConnection
     {
         //Kraken default endpoint
-        private string endpoint = "https://api.kraken.com/0/";
+        private string endpoint = "https://api.kraken.com/";
         private static RateLimiter requestLimiter = new RateLimiter();
         private RestClient client; // RestSharp client
 
@@ -34,7 +34,7 @@ namespace BitExAPI.Markets.Kraken
         private string privateKey;
         private string APIKey;
 
-        private KrakenCrypto crypto;
+        public static KrakenCrypto Crypto;
 
         #region Events
         
@@ -57,7 +57,7 @@ namespace BitExAPI.Markets.Kraken
             this.APIKey = APIKey;
 
             if (this.APIKey != "" && this.privateKey != "")
-                crypto = new KrakenCrypto(APIKey, privateKey);
+                Crypto = new KrakenCrypto(APIKey, privateKey);
         }
 
         #region Settings
@@ -66,14 +66,14 @@ namespace BitExAPI.Markets.Kraken
         {
             APIKey = key;
             if (this.APIKey != "" && this.privateKey != "")
-                crypto = new KrakenCrypto(APIKey, privateKey);
+                Crypto = new KrakenCrypto(APIKey, privateKey);
         }
 
         public void SetPrivateKey(string key)
         {
             privateKey = key;
             if (this.APIKey != "" && this.privateKey != "")
-                crypto = new KrakenCrypto(APIKey, privateKey);
+                Crypto = new KrakenCrypto(APIKey, privateKey);
         }
 
         #endregion //settings
@@ -126,7 +126,7 @@ namespace BitExAPI.Markets.Kraken
 
         public Trades RequestTrades()
         {
-            KrakenRequest req = KrakenRequestFactory.CreateTradesRequest(
+            KrakenRequest req = KrakenRequestFactory.Trades(
                 pair: new KrakenPair(Money.Currencies["BTC"], Money.Currencies["EUR"]),
                 since: sinceLastTrade);
 
@@ -205,7 +205,7 @@ namespace BitExAPI.Markets.Kraken
             p.Add("pair", pair);
 
             return RestRequest<TickerResponse, Ticker>(
-                resource: "{scope}/{op}",
+                resource: "/0/{scope}/{op}",
                 segments: new Dictionary<string, string>() { { "scope", "public" }, { "op", "Ticker" } },
                 parameters: p);
         }
@@ -213,7 +213,7 @@ namespace BitExAPI.Markets.Kraken
         public DateTime RequestTime()
         {
             var D = RestRequest<TimeResponse, Date>(
-                resource: "{scope}/{op}",
+                resource: "/0/{scope}/{op}",
                 segments: new Dictionary<string, string>() { { "scope", "public" }, { "op", "Time" } },
                 parameters: null);
 
@@ -223,7 +223,7 @@ namespace BitExAPI.Markets.Kraken
         public AssetsResponse GetAssets()
         {
             var D = RestRequest<AssetsResponse, AssetsResponse>(
-                resource: "{scope}/{op}",
+                resource: "/0/{scope}/{op}",
                 segments: new Dictionary<string, string>() { { "scope", "public" }, { "op", "Assets" } },
                 parameters: null);
             return D;
@@ -231,6 +231,7 @@ namespace BitExAPI.Markets.Kraken
 
         public void GetBalances()
         {
+            var Req = KrakenRequestFactory.WalletBalance();
 
             throw new NotImplementedException();
         }

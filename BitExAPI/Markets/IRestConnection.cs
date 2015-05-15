@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace BitExAPI.Markets
 {
+    /// <summary>
+    /// Each Market API with a rest conection will implment this interface
+    /// </summary>
     public interface IRestConnection
     {
         string RestEndpoint { get; set; }

@@ -62,13 +62,12 @@
     <Compile Include="Markets\IRestConnection.cs" />
     <Compile Include="Markets\Kraken\Requests\KrakenRequest.cs" />
     <Compile Include="Markets\Kraken\Requests\KrakenRequestFactory.cs" />
-    <Compile Include="Markets\Kraken\Requests\RequestBalance.cs" />
+    <Compile Include="Markets\Kraken\Requests\RequestWalletBalance.cs" />
     <Compile Include="Markets\Kraken\Requests\RequestClosedOrders.cs" />
     <Compile Include="Markets\Kraken\Requests\RequestOpenOrders.cs" />
     <Compile Include="Markets\Kraken\Requests\RequestTradeBalance.cs" />
     <Compile Include="Markets\Kraken\Requests\RequestTradeVolume.cs" />
-    <Compile Include="Markets\Kraken\Requests\TradesRequest.cs" />
-    <Compile Include="Markets\Kraken\Response.cs" />
+    <Compile Include="Markets\Kraken\Requests\RequestTrades.cs" />
     <Compile Include="Markets\Kraken\Responses\AssetsResponse.cs" />
     <Compile Include="Markets\Kraken\Responses\DepthResponse.cs" />
     <Compile Include="Markets\Kraken\KrakenConnection.cs" />
@@ -77,7 +76,6 @@
     <Compile Include="Markets\Kraken\Responses\OpenOrdersResponse.cs" />
     <Compile Include="Markets\Kraken\Responses\PairsResponse.cs" />
     <Compile Include="Markets\Kraken\RateLimiter.cs" />
-    <Compile Include="Markets\Kraken\Request.cs" />
     <Compile Include="Markets\Kraken\Responses\SpreadResponse.cs" />
     <Compile Include="Markets\Kraken\Responses\TickerResponse.cs" />
     <Compile Include="Markets\Kraken\Responses\TimeResponse.cs" />
