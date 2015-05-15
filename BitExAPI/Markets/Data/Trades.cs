@@ -12,6 +12,8 @@ namespace BitExAPI.Markets.Data
         public Currency BuyCurrency;        //This balance increases with bid
         public Currency SellCurrency;       //This balance increases with ask
         public List<TradePoint> TradePoints;
+
+        public string last;
     }
 
     public class TradePoint

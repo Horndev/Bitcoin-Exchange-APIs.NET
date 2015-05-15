@@ -29,6 +29,7 @@ namespace BitExAPI.Markets.Kraken
                     Volume = x.volume
                 }
                 ).ToList();
+            t.last = last;
             return t;
         }
 

@@ -130,7 +130,18 @@ namespace BitExAPI.Markets.Kraken
                 pair: new KrakenPair(Money.Currencies["BTC"], Money.Currencies["EUR"]),
                 since: sinceLastTrade);
 
-            return req.Execute(connection: this) as Trades;
+            Trades trades = req.Execute(connection: this) as Trades;
+            sinceLastTrade = trades.last;
+            if (OnTrades != null && trades.TradePoints.Count > 0)
+                {
+                    OnTrades(null, new Events.TradesEventArgs()
+                    {
+                        data = trades,
+                        APIName = "kraken",
+                        LastTimeUTC_Epoch_e9 = Convert.ToInt64(sinceLastTrade)
+                    });
+                }
+            return trades;
             
             ////request parameters
 
@@ -149,15 +160,7 @@ namespace BitExAPI.Markets.Kraken
             //    sinceLastTrade = newTrades.result.last;
             //    tradeCount += Convert.ToUInt32(t.Count);  //Performance counter
 
-            //    if (OnTrades != null && t.Count > 0)
-            //    {
-            //        OnTrades(null, new Events.TradesEventArgs()
-            //        {
-            //            data = (Trades)newTrades.ToMarketData(),
-            //            APIName = "kraken",
-            //            LastTimeUTC_Epoch_e9 = Convert.ToInt64(sinceLastTrade)
-            //        });
-            //    }
+
             //}
 
             //return newTrades.ToMarketData() as Trades;
