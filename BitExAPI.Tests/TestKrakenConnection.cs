@@ -36,6 +36,15 @@ namespace BitExAPI.Tests
         }
 
         [TestMethod]
+        public void TestKrakenTradeCount()
+        {
+            var connection = new KrakenConnection();
+            Trades t = connection.RequestTrades();
+
+            Assert.IsTrue(connection.TradeCount > 0);
+        }
+
+        [TestMethod]
         public void TestRequestTicker()
         {
             var connection = new KrakenConnection();

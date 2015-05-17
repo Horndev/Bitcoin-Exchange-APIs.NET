@@ -17,6 +17,7 @@ namespace BitExAPI.Markets.Kraken.Requests
         {
             this.RestResource = "/0/{scope}/{op}";
             this.RestResourceSegments = new Dictionary<string, string>() { { "scope", "public" }, { "op", "Trades" } };
+            this.RestParameters = new Dictionary<string, string>();
             this.Pair = pair;
             this.SinceTimeUTC_Epoch_e9 = 0;
         }
