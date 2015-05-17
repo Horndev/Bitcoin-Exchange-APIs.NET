@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BitExAPI.Markets.Kraken.Requests
 {
-    public class RequestOpenOrders
+    public class RequestOpenOrders : KrakenRequest
     {
         public bool Trades = false; //whether or not to include trades in output (optional.  default = false)
 

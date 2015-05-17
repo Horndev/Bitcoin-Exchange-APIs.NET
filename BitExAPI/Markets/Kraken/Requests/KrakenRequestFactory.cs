@@ -26,5 +26,15 @@ namespace BitExAPI.Markets.Kraken.Requests
         {
             return new RequestWalletBalance();
         }
+
+        public static KrakenRequest OpenOrders()
+        {
+            return new RequestOpenOrders();
+        }
+
+        public static KrakenRequest Ticker()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
