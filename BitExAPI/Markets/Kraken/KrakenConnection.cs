@@ -132,6 +132,7 @@ namespace BitExAPI.Markets.Kraken
 
             Trades trades = req.Execute(connection: this) as Trades;
             sinceLastTrade = trades.last;
+            tradeCount += Convert.ToUInt32(trades.TradePoints.Count);  //Performance counter
             if (OnTrades != null && trades.TradePoints.Count > 0)
                 {
                     OnTrades(null, new Events.TradesEventArgs()
