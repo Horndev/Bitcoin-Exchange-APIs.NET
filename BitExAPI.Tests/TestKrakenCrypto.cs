@@ -60,8 +60,8 @@ namespace TraderCrypto.Tests
         public void TestKrakenSecureConnection()
         {
             var connection = new KrakenConnection();
-            string APIKey = File.ReadAllText(@"L:\ReadOnlyPu.txt");
-            string PrvKey = File.ReadAllText(@"L:\ReadOnlyPr.txt");
+            string APIKey = File.ReadAllText(@"L:\Pu.txt");
+            string PrvKey = File.ReadAllText(@"L:\Pr.txt");
             connection.SetAPIKey(APIKey);
             connection.SetPrivateKey(PrvKey);
 
