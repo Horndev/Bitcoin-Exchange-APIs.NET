@@ -17,12 +17,40 @@ namespace BitExAPI.Crypto
         // Used for AES encryption/decryption.  see http://blogs.msdn.com/b/shawnfa/archive/2006/10/09/the-differences-between-rijndael-and-aes.aspx for AES interoperability info.
         RijndaelManaged SymmetricKey = new RijndaelManaged();
 
-        public string Encrypt(string text, string key)
+        public string Encrypt(string text, string userKey, string keySalt)
         {
-            return "";
+            byte[] salt = Encoding.ASCII.GetBytes(keySalt);
+            Rfc2898DeriveBytes key = new Rfc2898DeriveBytes(userKey, salt);
+            SymmetricKey.Key = key.GetBytes(SymmetricKey.KeySize / 8);
+            SymmetricKey.IV = key.GetBytes(SymmetricKey.BlockSize / 8);
+
+            byte[] KeyBytes = SymmetricKey.Key;
+            byte[] IV = SymmetricKey.IV;
+
+            SymmetricKey.Mode = CipherMode.CBC;
+            byte[] CipherTextBytes = null;
+
+            byte[] PlainTextBytes = Encoding.UTF8.GetBytes(text);
+            using (ICryptoTransform Encryptor = SymmetricKey.CreateEncryptor(KeyBytes, IV))
+            {
+                using (MemoryStream MemStream = new MemoryStream())
+                {
+                    using (CryptoStream CryptoStream = new CryptoStream(MemStream, Encryptor, CryptoStreamMode.Write))
+                    {
+                        CryptoStream.Write(PlainTextBytes, 0, PlainTextBytes.Length);
+                        CryptoStream.FlushFinalBlock();
+                        CipherTextBytes = MemStream.ToArray();
+                        MemStream.Close();
+                        CryptoStream.Close();
+                    }
+                }
+            }
+            SymmetricKey.Clear();
+            string cipherValue = Convert.ToBase64String(CipherTextBytes);
+            return cipherValue;
         }
 
-        public string Decrypt(string cyphertext, string userKey)
+        public string Decrypt(string cyphertext, string userKey, string keySalt)
         {
             // When a user logs in, the key will be the hash of the user's password + salt
 
@@ -31,7 +59,7 @@ namespace BitExAPI.Crypto
             // AES-192	192	128
             // AES-256	256	128
             // --- This code needs to be moved - should be passed via userKey to ensure sensitive credentials not transmitted. 
-            byte[] salt = Encoding.ASCII.GetBytes("SALT STRING");
+            byte[] salt = Encoding.ASCII.GetBytes(keySalt);
             Rfc2898DeriveBytes key = new Rfc2898DeriveBytes(userKey, salt);
             SymmetricKey.Key = key.GetBytes(SymmetricKey.KeySize / 8);
             SymmetricKey.IV = key.GetBytes(SymmetricKey.BlockSize / 8);

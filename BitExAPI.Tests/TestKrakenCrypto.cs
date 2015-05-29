@@ -66,6 +66,15 @@ namespace TraderCrypto.Tests
             connection.SetPrivateKey(PrvKey);
 
         }
+
+        [TestMethod]
+        public void TestEncryptionAES()
+        {
+            var c = new Crypto();
+            string userKey = "4b236698-ebbb-4d3d-9513-961c5603d431";
+            string cypher = c.Encrypt("hello", userKey, "0000000001");
+            Console.WriteLine(cypher);
+        }
     }
 
     /* MATLAB code for signed requests
