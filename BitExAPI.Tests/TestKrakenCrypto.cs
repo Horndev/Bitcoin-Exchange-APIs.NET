@@ -72,8 +72,13 @@ namespace TraderCrypto.Tests
         {
             var c = new Crypto();
             string userKey = "4b236698-ebbb-4d3d-9513-961c5603d431";
-            string cypher = c.Encrypt("hello", userKey, "0000000001");
+            string keySalt = "0000000001";
+            string text = "hello";
+            string cypher = c.Encrypt(text, userKey, keySalt);
             Console.WriteLine(cypher);
+
+            string textdec = c.Decrypt(cypher, userKey, keySalt);
+            Assert.AreEqual(text, textdec);
         }
     }
 

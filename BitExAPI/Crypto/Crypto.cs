@@ -74,20 +74,20 @@ namespace BitExAPI.Crypto
             byte[] IV = SymmetricKey.IV;
 
             SymmetricKey.Mode = CipherMode.CBC;
-            byte[] CipherTextBytes = null;
-
+            byte[] CipherTextBytes = Convert.FromBase64String(cyphertext);
+            
 
             /// DEBUG - encrypt some text
-            byte[] PlainTextBytes = Encoding.UTF8.GetBytes("Hello");
-            using (ICryptoTransform Encryptor = SymmetricKey.CreateEncryptor(KeyBytes, IV))
+            byte[] PlainTextBytes = null;
+            using (ICryptoTransform Decryptor = SymmetricKey.CreateDecryptor(KeyBytes, IV))
             {
                 using (MemoryStream MemStream = new MemoryStream())
                 {
-                    using (CryptoStream CryptoStream = new CryptoStream(MemStream, Encryptor, CryptoStreamMode.Write))
+                    using (CryptoStream CryptoStream = new CryptoStream(MemStream, Decryptor, CryptoStreamMode.Write))
                     {
-                        CryptoStream.Write(PlainTextBytes, 0, PlainTextBytes.Length);
+                        CryptoStream.Write(CipherTextBytes, 0, CipherTextBytes.Length);
                         CryptoStream.FlushFinalBlock();
-                        CipherTextBytes = MemStream.ToArray();
+                        PlainTextBytes = MemStream.ToArray();
                         MemStream.Close();
                         CryptoStream.Close();
                     }
@@ -95,19 +95,20 @@ namespace BitExAPI.Crypto
             }
             SymmetricKey.Clear();
 
+            string plainTextString = Encoding.ASCII.GetString(PlainTextBytes);
 
 
             ///  --- Decryption
-            string tokenKey = Convert.ToBase64String(KeyBytes);
-            string tokenIV = Convert.ToBase64String(IV);
+            //string tokenKey = Convert.ToBase64String(KeyBytes);
+            //string tokenIV = Convert.ToBase64String(IV);
             //Save our generated keys for this session
             //Session["TokenKey"] = tokenKey;
             //Session["TokenInit"] = tokenIV;
             
-            string cipherValue = Convert.ToBase64String(CipherTextBytes);
+            //string cipherValue = Convert.ToBase64String(CipherTextBytes);
 
             int z = 1; //debug
-            return "";
+            return plainTextString;
         }
     }
 }
