@@ -6,6 +6,9 @@ using System.Linq;
 
 namespace BitExAPI.Crypto
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class KrakenCrypto
     {
         public static string _apiKey;

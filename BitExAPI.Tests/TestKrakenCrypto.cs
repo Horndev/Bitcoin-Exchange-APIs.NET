@@ -64,7 +64,6 @@ namespace TraderCrypto.Tests
             string PrvKey = File.ReadAllText(@"L:\Pr.txt");
             connection.SetAPIKey(APIKey);
             connection.SetPrivateKey(PrvKey);
-
         }
 
         [TestMethod]
