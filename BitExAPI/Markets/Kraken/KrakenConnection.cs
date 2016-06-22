@@ -271,8 +271,12 @@ namespace BitExAPI.Markets.Kraken
         {
             get 
             {
-                if (getTradesThread.IsAlive && getSpreadsThread.IsAlive)
+                if (getTradesThread.IsAlive)
+                {
+                    if (pollSpreads)
+                        return getSpreadsThread.IsAlive;
                     return true;
+                }
                 return false;
             }
         }

@@ -22,6 +22,7 @@ namespace BitExAPI.Tests
             Assert.IsTrue(connection.TradeCount > 0);
 
             connection.StopBackgroundThread();
+            Thread.Sleep(TimeSpan.FromSeconds(1));
             Assert.IsFalse(connection.IsRunning);
         }
 
